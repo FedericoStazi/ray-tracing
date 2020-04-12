@@ -76,9 +76,9 @@ Vector3 Vector3::rotate(double x, double y, double z) const {
 
     std::vector<std::vector<double>> v = {{this->x()}, {this->y()}, {this->z()}};
     return
-        Matrix::rotation(x)
-        .multiply(Matrix::rotation(y))
-        .multiply(Matrix::rotation(z))
+        Matrix::x_rotation(x)
+        .multiply(Matrix::y_rotation(y))
+        .multiply(Matrix::z_rotation(z))
         .multiply(Matrix(v)).to_Vector();
 
 }

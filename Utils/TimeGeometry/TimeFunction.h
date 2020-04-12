@@ -20,12 +20,12 @@ private:
 
     // caching
     double EPS = 1e-6;
-    mutable double * _last = new double(0);
-    mutable double * _cached = new double;
+    mutable double _last = 0;
+    mutable double _cached = 0;
 
 public:
 
-    explicit TimeFunction(_function_type   value);
+    explicit TimeFunction(const _function_type&   value);
     explicit TimeFunction(double value);
 
     [[nodiscard]] double get(double time) const;

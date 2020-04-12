@@ -6,7 +6,7 @@
 
 #include <utility>
 
-TimeFunction::TimeFunction(TimeFunction::_function_type   function) : _function(std::move(function)), _is_function(true) {}
+TimeFunction::TimeFunction(const TimeFunction::_function_type& function) : _cached(function(0)), _function(function), _is_function(true) {}
 
 TimeFunction::TimeFunction(double value) : _value(value), _is_function(false) {}
 
@@ -16,11 +16,11 @@ double TimeFunction::get(double time) const {
         return _value;
     } else {
 
-        if (std::abs(time - *_last) > EPS) {
-            *_last = time;
-            *_cached = _function(time);
+        if (std::abs(time - _last) > EPS) {
+            _last = time;
+            _cached = _function(time);
         }
 
-        return *_cached;
+        return _cached;
     }
 }

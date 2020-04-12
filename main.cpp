@@ -17,6 +17,7 @@
 #include "Object/Object2D.h"
 #include "Surface/Circle.h"
 #include "Surface/Polygon.h"
+#include "Object/Cube.h"
 
 void test_ref_frame() {
 
@@ -55,8 +56,8 @@ void print_picture(const std::string& picture, const std::string& file = (std::s
 
 void video(Camera & c, int height, int width, const Scene& a) {
 
-    int FRAMES = 100;
-    int TIME = 10;
+    int FRAMES = 20;
+    int TIME = 5;
 
     for (int i=0; i<FRAMES; i++) {
 
@@ -142,10 +143,12 @@ int main() {
 
     s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, points)));
 
+    s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect3, 40));
+
     SimpleCamera c = test_camera(s);
 
-    //print_picture(c.picture(500, 500, 0.2));
-    video(c, 500, 500, s);
+    //print_picture(c.picture(500, 500, 0.3));
+    video(c, 200, 200, s);
 
 
 

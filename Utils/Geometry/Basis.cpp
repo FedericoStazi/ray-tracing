@@ -41,3 +41,11 @@ UnitVector3 Basis::get_z_base(double time) const {
     else
         throw Basis::NonOrthonormalBases();
 }
+
+Basis Basis::rotate(double x, double y, double z, double time) {
+    return Basis(
+            TimeUnitVector3(UnitVector3(get_x_base(time).rotate(x, y, z))),
+            TimeUnitVector3(UnitVector3(get_y_base(time).rotate(x, y, z))),
+            TimeUnitVector3(UnitVector3(get_z_base(time).rotate(x, y, z)))
+            );
+}

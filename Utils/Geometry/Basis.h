@@ -31,6 +31,8 @@ public:
     [[nodiscard]] UnitVector3 get_y_base(double time) const;
     [[nodiscard]] UnitVector3 get_z_base(double time) const;
 
+    Basis rotate(double x, double y, double z, double time);
+
 };
 
 

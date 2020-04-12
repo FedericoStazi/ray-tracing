@@ -23,6 +23,7 @@ private:
 protected:
 
     explicit Object(const ReferenceFrame &referenceFrame);
+
     void add(Surface * surface);
 
 public:
