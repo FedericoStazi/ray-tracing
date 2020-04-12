@@ -32,3 +32,17 @@ int Color::get_b() const {
 Color Color::set_b(int b) {
     return Color(get_r(), get_g(), _b);
 }
+
+
+double Color::_sigmoid(double k) const {
+    return 1 / (1 + exp(-k));
+}
+
+Color Color::intensity(double k) const {
+    double ks = _sigmoid(k);
+    return Color(
+            (int) (get_r() * ks),
+            (int) (get_g() * ks),
+            (int) (get_b() * ks)
+    );
+}

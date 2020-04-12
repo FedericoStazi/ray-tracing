@@ -11,3 +11,7 @@ Aspect::Aspect(const Color &color) : color(color) {}
 const Color &Aspect::get_color() const {
     return color;
 }
+
+double Aspect::get_k_diffuse() const {
+    return k_diffuse;
+}

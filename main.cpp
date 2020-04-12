@@ -18,6 +18,7 @@
 #include "Surface/Circle.h"
 #include "Surface/Polygon.h"
 #include "Object/Cube.h"
+#include "Light/SimpleLight.h"
 
 void test_ref_frame() {
 
@@ -124,15 +125,11 @@ int main() {
 
     Scene s;
 
-    s.add(new Ball (ReferenceFrame(TimeVector3(0, 10, 0), Basis()), aspect5, 10));
-    s.add(new Ball (ReferenceFrame(TimeVector3(0, 30, -50), Basis()), aspect4, 30));
-
     Basis b(
             TimeUnitVector3(1, 0, 0),
             TimeUnitVector3(0, 0, 1),
             TimeUnitVector3(0, -1, 0)
             );
-    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
 
     std::vector<Vector2> points ={
             Vector2(70, 70),
@@ -141,15 +138,16 @@ int main() {
             Vector2(70, -70)
     };
 
+    s.add(new Ball (ReferenceFrame(TimeVector3(0, 10, 0), Basis()), aspect5, 10));
+    s.add(new Ball (ReferenceFrame(TimeVector3(0, 30, -50), Basis()), aspect4, 30));
+    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
     s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, points)));
-
     s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect3, 40));
+    s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), 1));
 
     SimpleCamera c = test_camera(s);
 
-    //print_picture(c.picture(500, 500, 0.3));
-    video(c, 200, 200, s);
-
-
+    print_picture(c.picture(1000, 1000, 0.3));
+    //video(c, 200, 200, s);
 
 }

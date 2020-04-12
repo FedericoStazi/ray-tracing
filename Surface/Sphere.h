@@ -17,7 +17,10 @@ private:
 public:
 
     Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect, double radius);
-    std::vector<std::pair<double, Color> > intersections(const Line& ray, double time) override;
+
+    UnitVector3 get_normal(const Vector3 & v, double time) override;
+
+    std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time) override;
 
 };
 

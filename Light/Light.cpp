@@ -3,3 +3,5 @@
 //
 
 #include "Light.h"
+
+Light::Light(const ReferenceFrame &referenceFrame) : Entity(referenceFrame) {}

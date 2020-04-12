@@ -6,7 +6,15 @@
 #define CPP_GRAPHICS_LIGHT_H
 
 
-class Light {
+#include "../Entity.h"
+
+class Light : public Entity {
+
+
+public:
+
+    explicit Light(const ReferenceFrame &referenceFrame);
+    virtual double get_intensity() const = 0;
 
 };
 

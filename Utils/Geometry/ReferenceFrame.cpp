@@ -38,6 +38,14 @@ Line ReferenceFrame::to_ref_frame(const Line &l, double time) const {
             );
 }
 
+UnitVector3 ReferenceFrame::unit_to_ref_frame(const UnitVector3 &v, double time) const {
+    return UnitVector3(ReferenceFrame(TimeVector3(0, 0, 0), get_orientation()).to_ref_frame(v, time));
+}
+
+UnitVector3 ReferenceFrame::unit_to_ref_frame(const TimeUnitVector3 &v, double time) const {
+    return unit_to_ref_frame(v.time(time), time);
+}
+
 Vector3 ReferenceFrame::from_ref_frame(const Vector3 &v, double time) const {
 
     ReferenceFrame non_translated_ref_frame(TimeVector3(0, 0, 0), get_orientation());
@@ -59,20 +67,20 @@ Vector3 ReferenceFrame::from_ref_frame(const TimeVector3& v, double time) const 
     return from_ref_frame(v.time(time), time);
 }
 
+UnitVector3 ReferenceFrame::unit_from_ref_frame(const UnitVector3 &v, double time) const {
+    return UnitVector3(ReferenceFrame(TimeVector3(0, 0, 0), get_orientation()).from_ref_frame(v, time));
+}
+
+UnitVector3 ReferenceFrame::unit_from_ref_frame(const TimeUnitVector3 &v, double time) const {
+    return unit_from_ref_frame(v.time(time), time);
+}
+
 Vector2 ReferenceFrame::to_plane(const Vector3 &v, double time) const {
     return Vector2(to_ref_frame(v, time));
 }
 
 Vector2 ReferenceFrame::to_plane(const TimeVector3& v, double time) const {
     return Vector2(to_ref_frame(v, time));
-}
-
-UnitVector3 ReferenceFrame::unit_to_ref_frame(const UnitVector3 &v, double time) const {
-    return UnitVector3(ReferenceFrame(TimeVector3(0, 0, 0), get_orientation()).to_ref_frame(v, time));
-}
-
-UnitVector3 ReferenceFrame::unit_to_ref_frame(const TimeUnitVector3 &v, double time) const {
-    return unit_to_ref_frame(v.time(time), time);
 }
 
 Vector3 ReferenceFrame::from_plane(const Vector2 &v, double time) const {

@@ -8,9 +8,13 @@
 Sphere::Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                double radius) : Surface(referenceFrame, aspect), radius(radius) {}
 
-std::vector<std::pair<double, Color> > Sphere::intersections(const Line& ray, double time) {
+UnitVector3 Sphere::get_normal(const Vector3 & v, double time) {
+    return UnitVector3(v.subtract(get_reference_frame().get_location(time)).normalized());
+}
 
-    std::vector<std::pair<double, Color>> result;
+std::vector<std::pair<double, Surface *>> Sphere::intersections(const Line& ray, double time) {
+
+    std::vector<std::pair<double, Surface *>> result;
 
     // sphere's centre is translated so that ray starts from the origin
     Vector3 line = ray.get_direction(time);
@@ -19,8 +23,8 @@ std::vector<std::pair<double, Color> > Sphere::intersections(const Line& ray, do
     double delta = line.dot_product(centre) * line.dot_product(centre) - centre.magnitude() * centre.magnitude() + radius * radius;
 
     if (delta >= 0) {
-        result.emplace_back(line.dot_product(centre) - std::sqrt(delta), get_aspect().get_color());
-        result.emplace_back(line.dot_product(centre) + std::sqrt(delta), get_aspect().get_color());
+        result.emplace_back(line.dot_product(centre) - std::sqrt(delta), this);
+        result.emplace_back(line.dot_product(centre) + std::sqrt(delta), this);
     }
 
     return result;

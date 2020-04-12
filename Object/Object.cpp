@@ -10,9 +10,9 @@ void Object::add(Surface *surface) {
     surfaces.insert(surface);
 }
 
-std::vector<std::pair<double, Color>> Object::intersections(const Line& ray, double time) {
+std::vector<std::pair<double, Surface *>> Object::intersections(const Line& ray, double time) {
 
-    std::vector<std::pair<double, Color>> result;
+    std::vector<std::pair<double, Surface *>> result;
 
     for (Surface * surface : surfaces) {
         auto v = surface->intersections(get_reference_frame().to_ref_frame(ray, time), time);

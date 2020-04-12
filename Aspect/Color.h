@@ -6,11 +6,15 @@
 #define CPP_GRAPHICS_COLOR_H
 
 
+#include <cmath>
+
 class Color {
 
 private:
 
     int _r, _g, _b;
+
+    [[nodiscard]] double _sigmoid(double k) const;
 
 public:
 
@@ -23,6 +27,8 @@ public:
     Color set_g(int g);
     [[nodiscard]] int get_b() const;
     Color set_b(int b);
+
+    [[nodiscard]] Color intensity(double k) const;
 
 };
 

@@ -14,12 +14,17 @@ private:
 
     Color color;
 
+    double k_diffuse = 1; // TODO should it be k_diffuse + k_specular = 1 ?
+    double k_specular = 0;
+    double roughness = 10;
+
 public:
 
     Aspect();
     explicit Aspect(const Color &color);
 
     [[nodiscard]] const Color &get_color() const;
+    [[nodiscard]] double get_k_diffuse() const;
 
 };
 

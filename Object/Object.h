@@ -13,6 +13,7 @@
 #include "../Utils/Geometry/Line.h"
 #include "../Entity.h"
 #include "../Surface/Surface.h"
+#include "../Light/Light.h"
 
 class Object : public Entity {
 
@@ -28,7 +29,7 @@ protected:
 
 public:
 
-    std::vector<std::pair<double, Color>> intersections(const Line& ray, double time);
+    std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time);
 
 };
 

@@ -37,6 +37,9 @@ public:
     [[nodiscard]] Vector3 from_ref_frame(const Vector3& v, double time) const;
     [[nodiscard]] Vector3 from_ref_frame(const TimeVector3& v, double time) const;
 
+    [[nodiscard]] UnitVector3 unit_from_ref_frame(const UnitVector3& v, double time) const;
+    [[nodiscard]] UnitVector3 unit_from_ref_frame(const TimeUnitVector3& v, double time) const;
+
     // v must lie on the plane xy
     [[nodiscard]] Vector2 to_plane(const TimeVector3& v, double time) const;
     [[nodiscard]] Vector2 to_plane(const Vector3& v, double time) const;

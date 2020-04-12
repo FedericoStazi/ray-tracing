@@ -6,8 +6,10 @@
 #define CPP_GRAPHICS_SURFACE_H
 
 
+#include <set>
 #include "../Entity.h"
 #include "../Aspect/Aspect.h"
+#include "../Light/Light.h"
 
 class Surface : public Entity{
 
@@ -20,14 +22,15 @@ protected:
 
     Surface(const ReferenceFrame &referenceFrame, const Aspect &aspect);
 
-    [[nodiscard]] const Aspect &get_aspect() const;
-
     void add(const Vector2& point);
 
 public:
 
-    virtual std::vector<std::pair<double, Color>> intersections(const Line & ray, double time);
+    [[nodiscard]] const Aspect &get_aspect() const;
 
+    virtual UnitVector3 get_normal(const Vector3 & v, double time);
+
+    virtual std::vector<std::pair<double, Surface *>> intersections(const Line & ray, double time);
 
 };
 

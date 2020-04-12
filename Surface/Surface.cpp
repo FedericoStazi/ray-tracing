@@ -16,7 +16,17 @@ void Surface::add(const Vector2& point) {
     points.push_back(point);
 }
 
-std::vector<std::pair<double, Color>> Surface::intersections(const Line & ray, double time) {
+UnitVector3 Surface::get_normal(const Vector3 & v, double time) {
+
+    Vector3 z_base = get_reference_frame().get_orientation().get_z_base(time);
+
+    if (z_base.distance(v) > z_base.scale(-1).distance(v))
+        z_base = z_base.scale(-1);
+
+    return UnitVector3(z_base);
+}
+
+std::vector<std::pair<double, Surface *>> Surface::intersections(const Line & ray, double time) {
 
     Vector2 uv = get_reference_frame().point_intersection(ray, time);
 
@@ -29,10 +39,10 @@ std::vector<std::pair<double, Color>> Surface::intersections(const Line & ray, d
             inside = false;
     }
 
-    std::vector<std::pair<double, Color>> result;
+    std::vector<std::pair<double, Surface *>> result;
 
     if (inside)
-        result.emplace_back(get_reference_frame().k_intersection(ray, time), get_aspect().get_color());
+        result.emplace_back(get_reference_frame().k_intersection(ray, time),this);
 
     return result;
 }
