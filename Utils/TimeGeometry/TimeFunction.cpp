@@ -10,9 +10,6 @@ TimeFunction::TimeFunction(TimeFunction::_function_type   function) : _function(
 
 TimeFunction::TimeFunction(double value) : _value(value), _is_function(false) {}
 
-double TimeFunction::get(double time) const { return _is_function ? _function(time) : _value; }
-
-/*
 double TimeFunction::get(double time) const {
 
     if (!_is_function) {
@@ -27,4 +24,3 @@ double TimeFunction::get(double time) const {
         return *_cached;
     }
 }
-*/

@@ -18,12 +18,10 @@ private:
     double _value = 0;
     _function_type _function;
 
-/*
     // caching
     double EPS = 1e-6;
-    double * _last = new double(0);
-    double * _cached = new double;
-*/
+    mutable double * _last = new double(0);
+    mutable double * _cached = new double;
 
 public:
 
