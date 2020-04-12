@@ -140,7 +140,7 @@ int main() {
             Vector2(70, -70)
     };
 
-    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), points, aspect2)));
+    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, points)));
 
     SimpleCamera c = test_camera(s);
 

@@ -12,9 +12,7 @@ class Polygon : public Surface {
 
 public:
 
-    Polygon(const ReferenceFrame &referenceFrame, const std::vector<Vector2>& points, const Aspect &aspect);
-
-    std::vector<std::pair<double, Color>> intersections(Line ray, double time) override;
+    Polygon(const ReferenceFrame &referenceFrame, const Aspect &aspect, const std::vector<Vector2>& points);
 
 };
 

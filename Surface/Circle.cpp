@@ -7,7 +7,7 @@
 Circle::Circle(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                double radius) : Surface(referenceFrame, aspect), radius(radius) {}
 
-std::vector<std::pair<double, Color>> Circle::intersections(Line ray, double time) {
+std::vector<std::pair<double, Color>> Circle::intersections(const Line& ray, double time) {
 
     std::vector<std::pair<double, Color>> result;
 

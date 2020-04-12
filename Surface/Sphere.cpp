@@ -8,7 +8,7 @@
 Sphere::Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                double radius) : Surface(referenceFrame, aspect), radius(radius) {}
 
-std::vector<std::pair<double, Color> > Sphere::intersections(Line ray, double time) {
+std::vector<std::pair<double, Color> > Sphere::intersections(const Line& ray, double time) {
 
     std::vector<std::pair<double, Color>> result;
 

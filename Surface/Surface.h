@@ -14,18 +14,19 @@ class Surface : public Entity{
 private:
 
     Aspect aspect;
+    std::vector<Vector2> points;
 
 protected:
-
-    std::vector<Vector2> points;
 
     Surface(const ReferenceFrame &referenceFrame, const Aspect &aspect);
 
     [[nodiscard]] const Aspect &get_aspect() const;
 
+    void add(const Vector2& point);
+
 public:
 
-    virtual std::vector<std::pair<double, Color>> intersections(Line ray, double time) = 0;
+    virtual std::vector<std::pair<double, Color>> intersections(const Line & ray, double time);
 
 
 };
