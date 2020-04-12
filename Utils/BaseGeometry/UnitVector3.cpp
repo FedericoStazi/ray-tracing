@@ -3,10 +3,10 @@
 //
 
 #include "UnitVector3.h"
-#include "../TimeGeometry/TimeVector3.h"
+#include "Constants.h"
 
 UnitVector3::UnitVector3(const Vector3& v) : Vector3(v) {
-    if (std::abs(v.magnitude() - 1) > TimeVector3::eps)
+    if (std::abs(v.magnitude() - 1) > Constants::eps)
         throw NonUnitException();
 }
 

@@ -5,6 +5,8 @@
 #include <cmath>
 #include "Vector3.h"
 #include "../Matrix.h"
+#include "../TimeGeometry/TimeVector3.h"
+#include "Constants.h"
 
 Vector3::Vector3(double x, double y, double z) : _x(x), _y(y), _z(z) {}
 
@@ -38,12 +40,16 @@ double Vector3::magnitude() const {
     return std::sqrt(x() * x() + y() * y() + z() * z());
 }
 
-Vector3 Vector3::scale(double k) const {
-    return Vector3(x() * k, y() * k, z() * k);
-}
-
 Vector3 Vector3::normalized() const {
     return scale(1 / magnitude());
+}
+
+bool Vector3::equals(const Vector3 &v) const {
+    return subtract(v).magnitude() < Constants::eps;
+}
+
+Vector3 Vector3::scale(double k) const {
+    return Vector3(x() * k, y() * k, z() * k);
 }
 
 Vector3 Vector3::add(const Vector3& other) const {
@@ -69,7 +75,11 @@ double Vector3::distance(const Vector3& other) const {
 Vector3 Vector3::rotate(double x, double y, double z) const {
 
     std::vector<std::vector<double>> v = {{this->x()}, {this->y()}, {this->z()}};
-    return Matrix::rotation(x, y, z).multiply(Matrix(v)).to_Vector();
+    return
+        Matrix::rotation(x)
+        .multiply(Matrix::rotation(y))
+        .multiply(Matrix::rotation(z))
+        .multiply(Matrix(v)).to_Vector();
 
 }
 

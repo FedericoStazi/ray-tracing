@@ -11,13 +11,23 @@ class TimeFunction {
 
 private:
 
-    typedef std::function<double(double)> data_type;
+    typedef std::function<double(double)> _function_type;
 
-    data_type value;
+    bool _is_function;
+
+    double _value = 0;
+    _function_type _function;
+
+/*
+    // caching
+    double EPS = 1e-6;
+    double * _last = new double(0);
+    double * _cached = new double;
+*/
 
 public:
 
-    explicit TimeFunction(data_type value);
+    explicit TimeFunction(_function_type   value);
     explicit TimeFunction(double value);
 
     [[nodiscard]] double get(double time) const;

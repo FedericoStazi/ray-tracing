@@ -51,26 +51,31 @@ Matrix Matrix::rotation(double a) {
     };
 }
 
-Matrix Matrix::rotation(double x, double y, double z) {
-
-    std::vector<std::vector<double>> mat_x = {
+Matrix Matrix::x_rotation(double a) {
+    std::vector<std::vector<double>> mat = {
             {1, 0, 0},
-            {0, cos(x), -sin(x)},
-            {0, sin(x), cos(x)}
+            {0, cos(a), -sin(a)},
+            {0, sin(a), cos(a)}
     };
-    std::vector<std::vector<double>> mat_y = {
-            {cos(y), 0, sin(y)},
+    return Matrix(mat);
+}
+
+Matrix Matrix::y_rotation(double a) {
+    std::vector<std::vector<double>> mat = {
+            {cos(a), 0, sin(a)},
             {0, 1, 0},
-            {-sin(y), 0, cos(y)}
+            {-sin(a), 0, cos(a)}
     };
-    std::vector<std::vector<double>> mat_z = {
-            {cos(z), -sin(z), 0},
-            {sin(z), cos(z), 0},
+    return Matrix(mat);
+}
+
+Matrix Matrix::z_rotation(double a) {
+    std::vector<std::vector<double>> mat = {
+            {cos(a), -sin(a), 0},
+            {sin(a), cos(a), 0},
             {0, 0, 1}
     };
-
-    return Matrix(mat_z).multiply(Matrix(mat_y)).multiply(Matrix(mat_x));
-
+    return Matrix(mat);
 }
 
 Vector3 Matrix::to_Vector() {

@@ -10,8 +10,8 @@
 
 #include "TimeFunction.h"
 #include "TimeVector3.h"
-#include "../Geometry/Vector3.h"
-#include "../Geometry/UnitVector3.h"
+#include "../BaseGeometry/Vector3.h"
+#include "../BaseGeometry/UnitVector3.h"
 
 class TimeUnitVector3 : public TimeVector3 {
 

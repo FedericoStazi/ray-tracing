@@ -3,7 +3,7 @@
 //
 
 #include "TimeUnitVector3.h"
-#include "../Geometry/Vector3.h"
+#include "../BaseGeometry/Vector3.h"
 
 TimeUnitVector3::TimeUnitVector3(TimeVector3 v) : TimeVector3(std::move(v)) {}
 

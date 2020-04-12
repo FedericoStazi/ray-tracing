@@ -3,10 +3,10 @@
 //
 
 #include "Vector2.h"
-#include "../TimeGeometry/TimeVector3.h"
+#include "Constants.h"
 
 Vector2::Vector2(Vector3 v) : Vector3(std::move(v)) {
-    if (std::abs(z()) > TimeVector3::eps)
+    if (std::abs(z()) > Constants::eps)
         throw Non2DException();
 }
 

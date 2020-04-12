@@ -8,7 +8,7 @@
 
 #include <exception>
 #include <vector>
-#include "Geometry/Vector3.h"
+#include "BaseGeometry/Vector3.h"
 
 struct matrix_size_mismatch: public std::exception {
     [[nodiscard]] const char * what () const noexcept override {
@@ -36,7 +36,9 @@ public:
 
     Matrix multiply(Matrix other);
 
-    static Matrix rotation(double x, double y, double z);
+    static Matrix x_rotation(double a);
+    static Matrix y_rotation(double a);
+    static Matrix z_rotation(double a);
 
     Vector3 to_Vector();
 

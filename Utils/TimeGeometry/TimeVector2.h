@@ -9,7 +9,7 @@
 
 
 #include "TimeVector3.h"
-#include "../Geometry/Vector2.h"
+#include "../BaseGeometry/Vector2.h"
 
 class TimeVector2 : public TimeVector3 {
 

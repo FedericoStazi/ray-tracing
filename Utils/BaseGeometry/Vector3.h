@@ -27,8 +27,9 @@ public:
     [[nodiscard]] Vector3 set_z(double z) const;
 
     [[nodiscard]] double magnitude() const;
-
     [[nodiscard]] Vector3 normalized() const ;
+
+    [[nodiscard]] bool equals(const Vector3& v) const;
 
     [[nodiscard]] Vector3 scale(double k) const;
     [[nodiscard]] Vector3 add(const Vector3& v) const;

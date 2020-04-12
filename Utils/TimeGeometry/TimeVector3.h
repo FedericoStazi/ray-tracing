@@ -6,7 +6,7 @@
 #define CPP_GRAPHICS_TIMEVECTOR3_H
 
 #include "TimeFunction.h"
-#include "../Geometry/Vector3.h"
+#include "../BaseGeometry/Vector3.h"
 
 class TimeVector3 {
 
@@ -15,9 +15,6 @@ protected:
     TimeFunction fx, fy, fz;
 
 public:
-
-    constexpr static double eps = 1e-8;
-    constexpr static double inf = std::numeric_limits<double>::infinity();
 
     TimeVector3(TimeFunction x, TimeFunction y, TimeFunction z);
     TimeVector3(double x, double y, double z);
