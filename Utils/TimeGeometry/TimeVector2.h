@@ -15,6 +15,7 @@ class TimeVector2 : public TimeVector3 {
 
 public:
 
+    explicit TimeVector2(const Vector3& v);
     explicit TimeVector2(TimeVector3 v);
     TimeVector2(TimeFunction x, TimeFunction y);
     TimeVector2(double x, double y);

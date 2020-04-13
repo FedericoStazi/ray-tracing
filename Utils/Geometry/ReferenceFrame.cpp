@@ -34,7 +34,7 @@ Vector3 ReferenceFrame::to_ref_frame(const TimeVector3& v, double time) const {
 Line ReferenceFrame::to_ref_frame(const Line &l, double time) const {
     return Line(
             TimeVector3(to_ref_frame(l.get_location(time), time)),
-            TimeUnitVector3(UnitVector3(unit_to_ref_frame(l.get_direction(time), time)))
+            TimeUnitVector3(unit_to_ref_frame(l.get_direction(time), time))
             );
 }
 
@@ -51,9 +51,9 @@ Vector3 ReferenceFrame::from_ref_frame(const Vector3 &v, double time) const {
     ReferenceFrame non_translated_ref_frame(TimeVector3(0, 0, 0), get_orientation());
 
     Basis origin_to_ref_frame (
-                TimeUnitVector3(UnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(1, 0, 0), time))),
-                TimeUnitVector3(UnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(0, 1, 0), time))),
-                TimeUnitVector3(UnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(0, 0, 1), time)))
+                TimeUnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(1, 0, 0), time)),
+                TimeUnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(0, 1, 0), time)),
+                TimeUnitVector3(non_translated_ref_frame.to_ref_frame(Vector3(0, 0, 1), time))
             );
 
     return Vector3(
@@ -98,7 +98,7 @@ double ReferenceFrame::k_intersection(const Line& line, double time) const {
 }
 
 Vector2 ReferenceFrame::point_intersection(const Line& line, double time) const {
-    return to_plane(line.get_location(time).add(line.get_direction(time).scale(k_intersection(line, time))), time);
+    return to_plane(line.evaluate(k_intersection(line, time), time), time);
 }
 
 

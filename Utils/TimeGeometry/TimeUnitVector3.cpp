@@ -5,6 +5,8 @@
 #include "TimeUnitVector3.h"
 #include "../BaseGeometry/Vector3.h"
 
+TimeUnitVector3::TimeUnitVector3(const Vector3& v) : TimeUnitVector3(UnitVector3(v)) {}
+
 TimeUnitVector3::TimeUnitVector3(TimeVector3 v) : TimeVector3(std::move(v)) {}
 
 TimeUnitVector3::TimeUnitVector3(TimeFunction x, TimeFunction y, TimeFunction z) : TimeVector3(std::move(x), std::move(y), std::move(z)) {}

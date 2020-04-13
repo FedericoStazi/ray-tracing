@@ -29,6 +29,10 @@ public:
     [[nodiscard]] double distance (const Vector3& vector, double time) const;
     [[nodiscard]] double distance (const TimeVector3& vector, double time) const;
 
+    [[nodiscard]] Vector3 evaluate (double k, double time) const;
+
+    static Line between_points(const Vector3& a, const Vector3& b);
+
     [[nodiscard]] std::string to_string(double time) const;
 
 

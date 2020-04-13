@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <cmath>
-#include <assert.h>
+#include <cassert>
 #include <fstream>
 #include "Utils/TimeGeometry/TimeVector3.h"
 #include "Utils/TimeGeometry/TimeUnitVector3.h"
@@ -16,10 +16,10 @@
 #include "Camera/SimpleCamera.h"
 #include "Object/Object2D.h"
 #include "Surface/Circle.h"
-#include "Surface/Polygon.h"
 #include "Object/Cube.h"
 #include "Light/SimpleLight.h"
 #include "Aspect/RGB.h"
+#include "Surface/Square.h"
 
 void test_ref_frame() {
 
@@ -40,7 +40,7 @@ void test_ref_frame() {
     Vector3 vv = referenceFrame.to_ref_frame(v, 0);
     Vector3 vvv = referenceFrame.from_ref_frame(vv, 0);
 
-    assert(v.equals(vvv));
+    assert(v.subtract(vvv).magnitude() < 1);
 
 }
 
@@ -58,8 +58,8 @@ void print_picture(const std::string& picture, const std::string& file = (std::s
 
 void video(Camera & c, int height, int width, const Scene& a) {
 
-    int FRAMES = 20;
-    int TIME = 5;
+    int FRAMES = 200;
+    int TIME = 10;
 
     for (int i=0; i<FRAMES; i++) {
 
@@ -79,34 +79,34 @@ void video(Camera & c, int height, int width, const Scene& a) {
     std::string command = "ffmpeg -y -v 16 -framerate " + std::to_string(FRAMES / TIME) + " -pattern_type glob -i \"im*.ppm\" video.avi; rm im*.ppm; xdg-open video.avi";
     system(command.c_str());
 
-};
+}
 
-SimpleCamera test_camera(Scene s) {
+SimpleCamera test_camera(const Scene& s) {
 
     double distance = 500;
 
     TimeVector3 position(
-    TimeFunction([=](double t){ return distance * sin(M_PI * t);}),
+    TimeFunction([=](double t){ return distance * std::sin(M_PI * t);}),
             TimeFunction([=](double t){ return distance * t;}),
-            TimeFunction([=](double t){ return distance * cos(M_PI * t);})
+            TimeFunction([=](double t){ return distance * std::cos(M_PI * t);})
     );
 
     TimeUnitVector3 base_x(
-    TimeFunction([=](double t){ return cos(M_PI * t);}),
+    TimeFunction([=](double t){ return std::cos(M_PI * t);}),
             TimeFunction([=](double t){ return 0;}),
-            TimeFunction([=](double t){ return -sin(M_PI * t);})
+            TimeFunction([=](double t){ return -std::sin(M_PI * t);})
     );
 
     TimeUnitVector3 base_y(
-    TimeFunction([=](double t){ return - t * sin(M_PI * t) / sqrt(t*t+1);}),
+    TimeFunction([=](double t){ return - t * std::sin(M_PI * t) / sqrt(t*t+1);}),
             TimeFunction([=](double t){ return 1.0 /sqrt(t*t+1);}),
-            TimeFunction([=](double t){ return - t * cos(M_PI * t) / sqrt(t*t+1);})
+            TimeFunction([=](double t){ return - t * std::cos(M_PI * t) / sqrt(t*t+1);})
     );
 
     TimeUnitVector3 base_z(
-    TimeFunction([=](double t){ return sin(M_PI * t) / sqrt(t*t+1);}),
+    TimeFunction([=](double t){ return std::sin(M_PI * t) / sqrt(t*t+1);}),
             TimeFunction([=](double t){ return t / sqrt(t*t+1);}),
-            TimeFunction([=](double t){ return cos(M_PI * t) / sqrt(t*t+1);})
+            TimeFunction([=](double t){ return std::cos(M_PI * t) / sqrt(t*t+1);})
     );
 
     return SimpleCamera(ReferenceFrame(position, Basis(base_x, base_y, base_z)), s);
@@ -116,16 +116,11 @@ int main() {
 
     //TODO: do unit testing
 
-    for (int i=0; i<256; i++)
-        std::cout<<i<<" "<<RGB(i, i, i).from_rgb().to_string()<<" "<<RGB::to_rgb(RGB(i, i, i).from_rgb()).to_string()<<"\n";
-
-    return 0;
-
-    Aspect aspect1(RGB(255, 209, 241).from_rgb());
-    Aspect aspect2(RGB(226, 209, 255).from_rgb());
-    Aspect aspect3(RGB(209, 231, 255).from_rgb());
-    Aspect aspect4(RGB(181, 2, 88).from_rgb());
-    Aspect aspect5(RGB(154, 255, 71).from_rgb());
+    Aspect aspect1(RGB(255, 209, 241).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
+    Aspect aspect2(RGB(226, 209, 255).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
+    Aspect aspect3(RGB(209, 231, 255).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
+    Aspect aspect4(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
+    Aspect aspect5(RGB(140, 230, 64).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
 
     test_ref_frame();
 
@@ -137,23 +132,17 @@ int main() {
             TimeUnitVector3(0, -1, 0)
             );
 
-    std::vector<Vector2> points ={
-            Vector2(70, 70),
-            Vector2(-70, 70),
-            Vector2(-70, -70),
-            Vector2(70, -70)
-    };
-
     s.add(new Ball (ReferenceFrame(TimeVector3(0, 10, 0), Basis()), aspect5, 10));
     s.add(new Ball (ReferenceFrame(TimeVector3(0, 30, -50), Basis()), aspect4, 30));
     s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
-    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, points)));
-    s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect3, 40));
-    s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(1, 1, 1)));
+    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 150)));
+    s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect4, 40));
+    s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(0.5, 0.5, 0.5)));
+    s.add(new SimpleLight(ReferenceFrame(TimeVector3(-50, 10, 100), Basis()), Color(0, 1, 0)));
 
     SimpleCamera c = test_camera(s);
 
-    print_picture(c.picture(500, 500, 0.3));
-    //video(c, 200, 200, s);
+    //print_picture(c.picture(500, 500, 0.3));
+    video(c, 500, 500, s);
 
 }

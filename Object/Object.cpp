@@ -15,7 +15,7 @@ std::vector<std::pair<double, Surface *>> Object::intersections(const Line& ray,
     std::vector<std::pair<double, Surface *>> result;
 
     for (Surface * surface : surfaces) {
-        auto v = surface->intersections(get_reference_frame().to_ref_frame(ray, time), time);
+        std::vector<std::pair<double, Surface *>> v = surface->intersections(get_reference_frame().to_ref_frame(ray, time), time);
         result.insert(result.end(), v.begin(), v.end());
     }
 

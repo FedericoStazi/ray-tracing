@@ -18,7 +18,7 @@ std::vector<std::pair<double, Surface *>> Sphere::intersections(const Line& ray,
 
     // sphere's centre is translated so that ray starts from the origin
     Vector3 line = ray.get_direction(time);
-    Vector3 centre = get_reference_frame().get_location(time).add(ray.get_location(time).scale(-1));
+    Vector3 centre = get_reference_frame().get_location(time).subtract(ray.get_location(time));
 
     double delta = line.dot_product(centre) * line.dot_product(centre) - centre.magnitude() * centre.magnitude() + radius * radius;
 

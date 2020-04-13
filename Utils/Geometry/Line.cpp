@@ -30,7 +30,15 @@ double Line::distance(const TimeVector3& vector, double time) const {
     return distance(vector.time(time), time);
 }
 
+Vector3 Line::evaluate(double k, double time) const {
+    return get_location(time).add(get_direction(time).scale(k));
+}
+
 std::string Line::to_string(double time) const {
     return "("+get_location(time).to_string()+","+get_direction(time).to_string()+")";
+}
+
+Line Line::between_points(const Vector3& a, const Vector3& b) {
+    return Line(TimeVector3(a),TimeUnitVector3(b.subtract(a).normalized()));
 }
 

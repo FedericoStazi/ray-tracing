@@ -46,33 +46,33 @@ double Matrix::at(int i, int j) {
 
 Matrix Matrix::rotation(double a) {
     std::vector<std::vector<double>> mat = {
-            {cos(a), -sin(a)},
-            {sin(a), cos(a)}
+            {std::cos(a), -std::sin(a)},
+            {std::sin(a), std::cos(a)}
     };
 }
 
 Matrix Matrix::x_rotation(double a) {
     std::vector<std::vector<double>> mat = {
             {1, 0, 0},
-            {0, cos(a), -sin(a)},
-            {0, sin(a), cos(a)}
+            {0, std::cos(a), -std::sin(a)},
+            {0, std::sin(a), std::cos(a)}
     };
     return Matrix(mat);
 }
 
 Matrix Matrix::y_rotation(double a) {
     std::vector<std::vector<double>> mat = {
-            {cos(a), 0, sin(a)},
+            {std::cos(a), 0, std::sin(a)},
             {0, 1, 0},
-            {-sin(a), 0, cos(a)}
+            {-std::sin(a), 0, std::cos(a)}
     };
     return Matrix(mat);
 }
 
 Matrix Matrix::z_rotation(double a) {
     std::vector<std::vector<double>> mat = {
-            {cos(a), -sin(a), 0},
-            {sin(a), cos(a), 0},
+            {std::cos(a), -std::sin(a), 0},
+            {std::sin(a), std::cos(a), 0},
             {0, 0, 1}
     };
     return Matrix(mat);

@@ -6,6 +6,8 @@
 
 #include <utility>
 
+TimeVector2::TimeVector2(const Vector3& v) : TimeVector2(Vector2(v)) {}
+
 TimeVector2::TimeVector2(TimeVector3 v) : TimeVector3(std::move(v)) {}
 
 TimeVector2::TimeVector2(TimeFunction x, TimeFunction y) : TimeVector3(std::move(x), std::move(y), TimeFunction(0)) {}

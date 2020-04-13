@@ -17,13 +17,7 @@ void Surface::add(const Vector2& point) {
 }
 
 UnitVector3 Surface::get_normal(const Vector3 & v, double time) {
-
-    Vector3 z_base = get_reference_frame().get_orientation().get_z_base(time);
-
-    if (z_base.distance(v) > z_base.scale(-1).distance(v))
-        z_base = z_base.scale(-1);
-
-    return UnitVector3(z_base);
+    return get_reference_frame().get_orientation().get_z_base(time);
 }
 
 std::vector<std::pair<double, Surface *>> Surface::intersections(const Line & ray, double time) {

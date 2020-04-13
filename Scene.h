@@ -17,6 +17,8 @@ class Scene {
 
 private:
 
+    Color ambient_intensity = Color(0.05, 0.05, 0.05);
+
     std::set<Object*> objects;
     std::set<Light*> lights;
 

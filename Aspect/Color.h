@@ -5,7 +5,6 @@
 #ifndef CPP_GRAPHICS_COLOR_H
 #define CPP_GRAPHICS_COLOR_H
 
-
 #include <cmath>
 #include "../Utils/BaseGeometry/Vector3.h"
 
@@ -33,6 +32,8 @@ public:
 
     [[nodiscard]] Color scale(double k) const;
     [[nodiscard]] Color scale(const Color & c) const;
+
+    [[nodiscard]] bool is_zero() const;
 
     std::string to_string();
 

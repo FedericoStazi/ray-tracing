@@ -12,9 +12,12 @@ std::string RGB::to_string() {
 
 int RGB::_to_rgb(double i) {
 
+    if (i < 0)
+        throw NegativeIntensityException();
+
     //tone mapping
     double p = pow(i, b);
-    double k = p == (1.0/0) ? 1 : p / (p + 1/pow(2*a, b));
+    double k = std::min(1.0, p / (p + 1/pow(2*a, b)));
 
     //display encoding
     return (int) (pow(k, gamma) * 255.0);

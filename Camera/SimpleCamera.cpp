@@ -21,10 +21,10 @@ std::string SimpleCamera::picture(int height, int width, double time) {
 
             Vector3 focal_point = get_reference_frame().get_location(time).add(get_direction(time).scale(-lens_distance));
 
-            Color c = get_scene().cast_ray(Line(
-                    TimeVector3(focal_point),
-                    TimeUnitVector3(UnitVector3(get_reference_frame().from_plane(Vector2(x, y), time).subtract(focal_point).normalized()))
-            ), _reflections, time);
+            Color c = get_scene().cast_ray(
+                    Line::between_points(focal_point, get_reference_frame().from_plane(Vector2(x, y), time)),
+                    _reflections + 1,
+                    time);
 
             result += RGB::to_rgb(c).to_string();
 

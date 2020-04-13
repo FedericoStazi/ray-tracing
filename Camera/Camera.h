@@ -18,11 +18,11 @@ private:
 
 protected:
 
-    Camera(const ReferenceFrame &referenceFrame, const Scene &scene);
+    Camera(const ReferenceFrame &referenceFrame, Scene scene);
 
 public:
 
-    [[nodiscard]] const Scene get_scene() const;
+    [[nodiscard]] Scene get_scene() const;
 
     UnitVector3 get_direction(double time);
 

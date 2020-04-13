@@ -2,8 +2,8 @@
 // Created by federico on 09/04/2020.
 //
 
-#include <iostream>
 #include "Color.h"
+#include "../Utils/BaseGeometry/Constants.h"
 
 
 Color::Color(double r, double g, double b) : _r(r), _g(g), _b(b) {}
@@ -66,4 +66,11 @@ Color Color::scale(const Color & c) const {
 
 std::string Color::to_string() {
     return "(" + std::to_string(get_r()) + " " + std::to_string(get_g()) + " " + std::to_string(get_b()) + ")";
+}
+
+bool Color::is_zero() const {
+    return
+        get_r() < Constants::eps &&
+        get_g() < Constants::eps &&
+        get_b() < Constants::eps;
 }

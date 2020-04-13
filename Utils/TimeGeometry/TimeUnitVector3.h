@@ -17,6 +17,7 @@ class TimeUnitVector3 : public TimeVector3 {
 
 public:
 
+    explicit TimeUnitVector3(const Vector3& v);
     explicit TimeUnitVector3(TimeVector3 v);
     TimeUnitVector3(TimeFunction x, TimeFunction y, TimeFunction z);
     TimeUnitVector3(double x, double y, double z);

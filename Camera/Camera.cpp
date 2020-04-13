@@ -4,9 +4,11 @@
 
 #include "Camera.h"
 
-Camera::Camera(const ReferenceFrame &referenceFrame, const Scene &scene) : Entity(referenceFrame), scene(scene) {}
+#include <utility>
 
-const Scene Camera::get_scene() const {
+Camera::Camera(const ReferenceFrame &referenceFrame, Scene scene) : Entity(referenceFrame), scene(std::move(scene)) {}
+
+Scene Camera::get_scene() const {
     return scene;
 }
 

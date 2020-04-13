@@ -13,6 +13,12 @@ class RGB {
 
 private:
 
+    struct NegativeIntensityException: public std::exception {
+        [[nodiscard]] const char * what () const noexcept override {
+            return "The intensity must be positive";
+        }
+    };
+
     int _r, _g, _b;
 
     static constexpr double a = 2;
