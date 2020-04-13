@@ -7,6 +7,7 @@
 #include "../Matrix.h"
 #include "../TimeGeometry/TimeVector3.h"
 #include "Constants.h"
+#include "../../Aspect/Color.h"
 
 Vector3::Vector3(double x, double y, double z) : _x(x), _y(y), _z(z) {}
 
@@ -48,7 +49,7 @@ bool Vector3::equals(const Vector3 &v) const {
     return subtract(v).magnitude() < Constants::eps;
 }
 
-Vector3 Vector3::scale(double k) const {
+const Vector3 Vector3::scale(double k) const {
     return Vector3(x() * k, y() * k, z() * k);
 }
 

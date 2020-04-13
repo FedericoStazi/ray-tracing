@@ -28,9 +28,12 @@ Scene::IntersectionData Scene::ray_intersection(const Line &ray, double time) co
 
 }
 
-Color Scene::surface_color(Scene::IntersectionData intersection_data, const Vector3& intersection_point, double time) const {
+Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line& ray, int reflections, double time) const {
 
-    double intensity = 0.0; //TODO
+    //Color result(0.2, 0.2, 0.2); //TODO
+    Color result(0, 0, 0); //TODO
+
+    Vector3 intersection_point = ray.get_location(time).add(ray.get_direction(time).scale(intersection_data.distance - Constants::eps));
 
     for (Light * light : lights) {
 
@@ -45,26 +48,45 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Vect
                         intersection_data.surface->get_normal(
                             intersection_data.object->get_reference_frame().to_ref_frame(intersection_point, time), time), time);
 
-        if (intersection_point.distance(light->get_reference_frame().get_location(time)) < light_distance)
-            intensity += light->get_intensity() *
-                    intersection_data.surface->get_aspect().get_k_diffuse() *
-                    light_line.get_direction(time).dot_product(surface_normal);
+        UnitVector3 viewer_vector = UnitVector3(ray.get_location(time).subtract(intersection_point).normalized());
+
+        if (intersection_point.distance(light->get_reference_frame().get_location(time)) < light_distance) {
+
+            // diffuse shading
+            result = result.add(light->get_intensity().scale(
+                    intersection_data.surface->get_aspect().get_k_diffuse().scale(
+                         light_line.get_direction(time).dot_product(surface_normal))));
+
+            // specular reflection
+            result = result.add(light->get_intensity().scale(
+                    intersection_data.surface->get_aspect().get_k_specular().scale(
+                            pow(
+                                    surface_normal.reflect(light_line.get_direction(time)).dot_product(viewer_vector),
+                                    intersection_data.surface->get_aspect().get_roughness()))));
+
+            /*
+            // mirror reflection
+            result = result.add(intersection_data.surface->get_aspect().get_k_mirror().scale(
+                    cast_ray(
+                            Line(intersection_point, UnitVector3(surface_normal.reflect(light_line.get_direction(time)))),
+                            reflections - 1,
+                            time
+                    )));
+            */
+
+        }
 
     }
 
-    return intersection_data.surface->get_aspect().get_color().intensity(intensity);
+    return result;
 
 }
 
-Color Scene::cast_ray(const Line& ray, double time) const {
+Color Scene::cast_ray(const Line& ray, int reflections, double time) const {
 
     IntersectionData closest_intersection = ray_intersection(ray, time);
 
-    return (closest_intersection.surface == nullptr) ? Color() : surface_color(
-            closest_intersection,
-            ray.get_location(time).add(ray.get_direction(time).scale(closest_intersection.distance - Constants::eps)),
-            time
-    );
+    return (closest_intersection.surface == nullptr || reflections == 0) ? Color() : surface_color(closest_intersection, ray, reflections, time);
 }
 
 

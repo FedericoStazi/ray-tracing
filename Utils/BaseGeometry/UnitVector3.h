@@ -24,6 +24,8 @@ public:
     UnitVector3(double x, double y, double z);
     UnitVector3();
 
+    Vector3 reflect(const Vector3& v);
+
 };
 
 #endif //CPP_GRAPHICS_UNITVECTOR3_H

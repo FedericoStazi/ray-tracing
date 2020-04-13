@@ -6,6 +6,7 @@
 #define CPP_GRAPHICS_VECTOR3_H
 
 #include <string>
+#include "../../Aspect/Color.h"
 
 class Vector3 {
 
@@ -31,7 +32,7 @@ public:
 
     [[nodiscard]] bool equals(const Vector3& v) const;
 
-    [[nodiscard]] Vector3 scale(double k) const;
+    [[nodiscard]] const Vector3 scale(double k) const;
     [[nodiscard]] Vector3 add(const Vector3& v) const;
     [[nodiscard]] Vector3 subtract(const Vector3& v) const;
 

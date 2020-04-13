@@ -4,15 +4,16 @@
 
 #include "SimpleCamera.h"
 #include "../Aspect/Color.h"
+#include "../Aspect/RGB.h"
 
 SimpleCamera::SimpleCamera(const ReferenceFrame &referenceFrame, const Scene &scene) : Camera(referenceFrame, scene) {}
 
 std::string SimpleCamera::picture(int height, int width, double time) {
 
-    std::vector<std::vector<int>> img;
+    std::string result;
 
     for (int j = height - 1; j >= 0; j--) {
-        std::vector<int> row;
+
         for (int i = 0; i < width; i++) {
 
             double x = aperture * ( ( (double) i / (width-1) ) - 0.5 );
@@ -23,26 +24,17 @@ std::string SimpleCamera::picture(int height, int width, double time) {
             Color c = get_scene().cast_ray(Line(
                     TimeVector3(focal_point),
                     TimeUnitVector3(UnitVector3(get_reference_frame().from_plane(Vector2(x, y), time).subtract(focal_point).normalized()))
-            ), time);
+            ), _reflections, time);
 
-            row.push_back(c.get_r());
-            row.push_back(c.get_g());
-            row.push_back(c.get_b());
+            result += RGB::to_rgb(c).to_string();
+
         }
-        img.push_back(row);
-    }
 
-    std::string result;
-
-    result = "P3\n"+std::to_string(img.size())+" "+std::to_string(img[0].size()/3)+"\n255\n";
-
-    for (const std::vector<int>& v:img) {
-        for (int x:v)
-            result += std::to_string(x) + " ";
         result += "\n";
     }
 
-    return result;
+
+    return "P3\n"+std::to_string(height)+" "+std::to_string(width)+"\n255\n" + result;
 
 }
 

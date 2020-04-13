@@ -4,8 +4,10 @@
 
 #include "SimpleLight.h"
 
-SimpleLight::SimpleLight(const ReferenceFrame &referenceFrame, double intensity) : Light(referenceFrame), intensity(intensity) {}
+#include <utility>
 
-double SimpleLight::get_intensity() const {
+SimpleLight::SimpleLight(const ReferenceFrame &referenceFrame, Color intensity) : Light(referenceFrame), intensity(intensity) {}
+
+Color SimpleLight::get_intensity() const {
     return intensity;
 }

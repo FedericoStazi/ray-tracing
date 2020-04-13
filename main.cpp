@@ -19,6 +19,7 @@
 #include "Surface/Polygon.h"
 #include "Object/Cube.h"
 #include "Light/SimpleLight.h"
+#include "Aspect/RGB.h"
 
 void test_ref_frame() {
 
@@ -115,11 +116,16 @@ int main() {
 
     //TODO: do unit testing
 
-    Aspect aspect1(Color(255, 209, 241));
-    Aspect aspect2(Color(226, 209, 255));
-    Aspect aspect3(Color(209, 231, 255));
-    Aspect aspect4(Color(181, 2, 88));
-    Aspect aspect5(Color(154, 255, 71));
+    for (int i=0; i<256; i++)
+        std::cout<<i<<" "<<RGB(i, i, i).from_rgb().to_string()<<" "<<RGB::to_rgb(RGB(i, i, i).from_rgb()).to_string()<<"\n";
+
+    return 0;
+
+    Aspect aspect1(RGB(255, 209, 241).from_rgb());
+    Aspect aspect2(RGB(226, 209, 255).from_rgb());
+    Aspect aspect3(RGB(209, 231, 255).from_rgb());
+    Aspect aspect4(RGB(181, 2, 88).from_rgb());
+    Aspect aspect5(RGB(154, 255, 71).from_rgb());
 
     test_ref_frame();
 
@@ -143,11 +149,11 @@ int main() {
     s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
     s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Polygon(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, points)));
     s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect3, 40));
-    s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), 1));
+    s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(1, 1, 1)));
 
     SimpleCamera c = test_camera(s);
 
-    print_picture(c.picture(1000, 1000, 0.3));
+    print_picture(c.picture(500, 500, 0.3));
     //video(c, 200, 200, s);
 
 }

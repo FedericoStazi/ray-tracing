@@ -31,14 +31,14 @@ private:
     };
 
     [[nodiscard]] IntersectionData ray_intersection(const Line& ray, double time) const;
-    [[nodiscard]] Color surface_color(IntersectionData intersection_data, const Vector3& intersection_point, double time) const;
+    [[nodiscard]] Color surface_color(IntersectionData intersection_data, const Line& ray, int reflections, double time) const;
 
 public:
-    void add(Object* object);
 
+    void add(Object* object);
     void add(Light* light);
 
-    [[nodiscard]] Color cast_ray(const Line& ray, double time) const;
+    [[nodiscard]] Color cast_ray(const Line& ray, int reflections, double time) const;
 
 };
 

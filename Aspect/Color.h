@@ -7,28 +7,34 @@
 
 
 #include <cmath>
+#include "../Utils/BaseGeometry/Vector3.h"
 
 class Color {
 
 private:
 
-    int _r, _g, _b;
-
-    [[nodiscard]] double _sigmoid(double k) const;
+    double _r, _g, _b;
 
 public:
 
+    static int tone_mapping(double k);
+
     Color();
-    Color(int r, int g, int b);
+    Color(double r, double g, double b);
 
-    [[nodiscard]] int get_r() const;
-    Color set_r(int r);
-    [[nodiscard]] int get_g() const;
-    Color set_g(int g);
-    [[nodiscard]] int get_b() const;
-    Color set_b(int b);
+    [[nodiscard]] double get_r() const;
+    Color set_r(double r);
+    [[nodiscard]] double get_g() const;
+    Color set_g(double g);
+    [[nodiscard]] double get_b() const;
+    Color set_b(double b);
 
-    [[nodiscard]] Color intensity(double k) const;
+    [[nodiscard]] Color add(Color c) const;
+
+    [[nodiscard]] Color scale(double k) const;
+    [[nodiscard]] Color scale(const Color & c) const;
+
+    std::string to_string();
 
 };
 

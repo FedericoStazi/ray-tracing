@@ -12,12 +12,12 @@ class SimpleLight : public Light{
 
 private:
 
-    double intensity;
+    Color intensity;
 
 public:
 
-    SimpleLight(const ReferenceFrame &referenceFrame, double intensity);
-    double get_intensity() const override;
+    SimpleLight(const ReferenceFrame &referenceFrame, Color intensity);
+    Color get_intensity() const override;
 
 };
 

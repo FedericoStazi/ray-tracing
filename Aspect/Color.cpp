@@ -2,47 +2,68 @@
 // Created by federico on 09/04/2020.
 //
 
+#include <iostream>
 #include "Color.h"
 
 
-Color::Color(int r, int g, int b) : _r(r), _g(g), _b(b) {}
+Color::Color(double r, double g, double b) : _r(r), _g(g), _b(b) {}
 
 Color::Color() : Color(0, 0, 0) {}
 
-int Color::get_r() const {
+int Color::tone_mapping(double k) {
+    return (int) (255.0 *std::erf(k));
+}
+
+double Color::get_r() const {
     return _r;
 }
 
-Color Color::set_r(int r) {
+Color Color::set_r(double r) {
     return Color(r, get_g(), get_b());
 }
 
-int Color::get_g() const {
+double Color::get_g() const {
     return _g;
 }
 
-Color Color::set_g(int g) {
-    return Color(get_r(), _g, get_b());
+Color Color::set_g(double g) {
+    return Color(get_r(), g, get_b());
 }
 
-int Color::get_b() const {
+double Color::get_b() const {
     return _b;
 }
 
-Color Color::set_b(int b) {
-    return Color(get_r(), get_g(), _b);
+
+Color Color::set_b(double b) {
+    return Color(get_r(), get_g(), b);
 }
 
 
-double Color::_sigmoid(double k) const {
-    return 1 / (1 + exp(-k));
-}
-
-Color Color::intensity(double k) const {
-    double ks = _sigmoid(k);
+Color Color::add(Color c) const {
     return Color(
-            (int) (get_r() * ks),
-            (int) (get_g() * ks),
-            (int) (get_b() * ks)
+            get_r() + c.get_r(),
+            get_g() + c.get_g(),
+            get_b() + c.get_b()
+            );
+}
+
+Color Color::scale(double k) const {
+    return Color(
+            get_r() * k,
+            get_g() * k,
+            get_b() * k
     );
+}
+
+Color Color::scale(const Color & c) const {
+    return Color(
+            get_r() * c.get_r(),
+            get_g() * c.get_g(),
+            get_b() * c.get_b()
+    );
+}
+
+std::string Color::to_string() {
+    return "(" + std::to_string(get_r()) + " " + std::to_string(get_g()) + " " + std::to_string(get_b()) + ")";
 }

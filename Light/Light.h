@@ -14,7 +14,7 @@ class Light : public Entity {
 public:
 
     explicit Light(const ReferenceFrame &referenceFrame);
-    virtual double get_intensity() const = 0;
+    virtual Color get_intensity() const = 0;
 
 };
 
