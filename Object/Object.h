@@ -21,6 +21,8 @@ private:
 
     std::set<Surface*> surfaces;
 
+    double furthest_distance = 0;
+
 protected:
 
     explicit Object(const ReferenceFrame &referenceFrame);

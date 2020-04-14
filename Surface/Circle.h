@@ -17,7 +17,10 @@ private:
 public:
 
     Circle(const ReferenceFrame &referenceFrame, const Aspect &aspect, double radius);
+
     std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time) override;
+
+    double furthest_distance(double time) override;
 
 };
 

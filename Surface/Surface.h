@@ -31,6 +31,8 @@ public:
 
     virtual std::vector<std::pair<double, Surface *>> intersections(const Line & ray, double time);
 
+    virtual double furthest_distance(double time);
+
 };
 
 

@@ -19,6 +19,7 @@ private:
 protected:
 
     Camera(const ReferenceFrame &referenceFrame, Scene scene);
+    Camera(const Vector3 &position, const Vector3 &point, Scene scene);
 
 public:
 

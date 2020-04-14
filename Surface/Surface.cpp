@@ -40,3 +40,13 @@ std::vector<std::pair<double, Surface *>> Surface::intersections(const Line & ra
 
     return result;
 }
+
+double Surface::furthest_distance(double time) {
+
+    double result = 0;
+    for (const Vector2& point : points)
+        result = std::max(result, get_reference_frame().from_plane(point, time).distance(Vector3(0, 0, 0)));
+
+    return result;
+
+}

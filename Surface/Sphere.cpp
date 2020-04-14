@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include "Sphere.h"
+#include "../Utils/BaseGeometry/Constants.h"
 
 Sphere::Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                double radius) : Surface(referenceFrame, aspect), radius(radius) {}
@@ -28,4 +29,17 @@ std::vector<std::pair<double, Surface *>> Sphere::intersections(const Line& ray,
     }
 
     return result;
+}
+
+double Sphere::furthest_distance(double time) {
+
+    if (get_reference_frame().get_location(time).magnitude() > Constants::eps) {
+
+        Line line = Line::between_points(Vector3(0, 0, 0), get_reference_frame().get_location(time));
+        std::vector<std::pair<double, Surface *>> line_intersections = intersections(line, time);
+        return std::max(line_intersections[0].first, line_intersections[1].first);
+    } else {
+
+        return radius;
+    }
 }

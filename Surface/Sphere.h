@@ -22,6 +22,8 @@ public:
 
     std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time) override;
 
+    double furthest_distance(double time) override;
+
 };
 
 
