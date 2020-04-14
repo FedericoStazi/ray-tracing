@@ -5,7 +5,7 @@
 #ifndef CPP_GRAPHICS_CIRCLE_H
 #define CPP_GRAPHICS_CIRCLE_H
 
-
+#include <vector>
 #include "Surface.h"
 
 class Circle : public Surface {

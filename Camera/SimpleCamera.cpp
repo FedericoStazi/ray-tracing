@@ -13,11 +13,10 @@ std::string SimpleCamera::picture(int height, int width, double time) {
     std::string result;
 
     for (int j = height - 1; j >= 0; j--) {
-
         for (int i = 0; i < width; i++) {
 
-            double x = aperture * ( ( (double) i / (width-1) ) - 0.5 );
-            double y = aperture * ( ( (double) j / (height-1) ) - 0.5 );
+            double x = sensor_size * (((double) i / (width - 1) ) - 0.5 );
+            double y = sensor_size * (((double) j / (height - 1) ) - 0.5 );
 
             Vector3 focal_point = get_reference_frame().get_location(time).add(get_direction(time).scale(-lens_distance));
 

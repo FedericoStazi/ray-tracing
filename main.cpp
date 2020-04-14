@@ -20,6 +20,7 @@
 #include "Light/SimpleLight.h"
 #include "Aspect/RGB.h"
 #include "Surface/Square.h"
+#include "Camera/RealCamera.h"
 
 void test_ref_frame() {
 
@@ -81,9 +82,7 @@ void video(Camera & c, int height, int width, const Scene& a) {
 
 }
 
-SimpleCamera test_camera(const Scene& s) {
-
-    double distance = 500;
+RealCamera test_camera(const Scene& s, double distance) {
 
     TimeVector3 position(
     TimeFunction([=](double t){ return distance * std::sin(M_PI * t);}),
@@ -109,14 +108,14 @@ SimpleCamera test_camera(const Scene& s) {
             TimeFunction([=](double t){ return std::cos(M_PI * t) / sqrt(t*t+1);})
     );
 
-    return SimpleCamera(ReferenceFrame(position, Basis(base_x, base_y, base_z)), s);
+    return RealCamera(ReferenceFrame(position, Basis(base_x, base_y, base_z)), s);
 }
 
 int main() {
 
     //TODO: do unit testing
 
-    Aspect aspect1(RGB(255, 209, 241).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
+    Aspect aspect1(RGB(255, 209, 241).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.05, 0.05, 0.05), 5);
     Aspect aspect2(RGB(226, 209, 255).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
     Aspect aspect3(RGB(209, 231, 255).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
     Aspect aspect4(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
@@ -132,17 +131,17 @@ int main() {
             TimeUnitVector3(0, -1, 0)
             );
 
-    s.add(new Ball (ReferenceFrame(TimeVector3(0, 10, 0), Basis()), aspect5, 10));
-    s.add(new Ball (ReferenceFrame(TimeVector3(0, 30, -50), Basis()), aspect4, 30));
-    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
-    s.add(new Object2D(ReferenceFrame(TimeVector3(0, 0, 0), b), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 150)));
-    s.add(new Cube(ReferenceFrame(TimeVector3(0, 20, 40), Basis()), aspect4, 40));
+    s.add(new Ball (ReferenceFrame(TimeVector3(0, -10, 0), Basis()), aspect5, 10));
+    s.add(new Ball (ReferenceFrame(TimeVector3(0, 10, -200), Basis()), aspect4, 30));
+    //s.add(new Object2D(ReferenceFrame(TimeVector3(0, 60, -50), b), new Circle(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect5, 20)));
+    s.add(new Object2D(ReferenceFrame(TimeVector3(0, -20, -70), b), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 400)));
+    s.add(new Cube(ReferenceFrame(TimeVector3(-30, 20, -100), Basis()), aspect1, 40));
     s.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(0.5, 0.5, 0.5)));
-    s.add(new SimpleLight(ReferenceFrame(TimeVector3(-50, 10, 100), Basis()), Color(0, 1, 0)));
+    s.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, 100), Basis()), Color(0.5, 0.5, 0.5)));
 
-    SimpleCamera c = test_camera(s);
+    RealCamera c = test_camera(s, 250);
 
-    //print_picture(c.picture(500, 500, 0.3));
-    video(c, 500, 500, s);
+    print_picture(c.picture(500, 500, 0.05));
+    //video(c, 500, 500, s);
 
 }

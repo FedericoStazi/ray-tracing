@@ -5,8 +5,7 @@
 #ifndef CPP_GRAPHICS_SURFACE_H
 #define CPP_GRAPHICS_SURFACE_H
 
-
-#include <set>
+#include <vector>
 #include "../Entity.h"
 #include "../Aspect/Aspect.h"
 #include "../Light/Light.h"

@@ -13,7 +13,7 @@ class SimpleCamera : public Camera {
 private:
 
     int _reflections = 1;
-    double aperture = 0.2;
+    double sensor_size = 0.2;
     double lens_distance = 0.5;
 
 public:

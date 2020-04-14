@@ -4,7 +4,7 @@
 
 #include "TimeFunction.h"
 
-#include <utility>
+#include <cmath>
 
 TimeFunction::TimeFunction(const TimeFunction::_function_type& function) : _cached(function(0)), _function(function), _is_function(true) {}
 
