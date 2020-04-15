@@ -40,8 +40,8 @@ int main() {
 
     // Set of object aspects
 
-    Aspect aspect1(RGB(255, 209, 241).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.05, 0.05, 0.05), 5);
-    Aspect aspect2(RGB(226, 209, 255).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
+    Aspect aspect1(RGB(20, 100, 200).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.05, 0.05, 0.05), 5);
+    Aspect aspect2(RGB(150, 150, 150).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
     Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
     Aspect aspect4(RGB(140, 230, 64).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
 

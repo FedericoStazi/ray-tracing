@@ -44,11 +44,11 @@ void RealCamera::set_shutter_speed(double _shutter_speed) {
     shutter_speed = _shutter_speed;
 }
 
-double RealCamera::get_focal_plane_distance() {
+double RealCamera::get_focal_plane_distance() const {
     return (lens_distance * focal_length / (lens_distance - focal_length) ) - aperture_distance;
 }
 
-double RealCamera::get_focal_plane_size() {
+double RealCamera::get_focal_plane_size() const {
     return get_focal_plane_distance() * sensor_size / lens_distance;;
 }
 
@@ -78,7 +78,8 @@ std::string RealCamera::picture(int height, int width, double time) {
                 double y = 0.5 - (j + dis(gen)) / (height-1);
 
                 Vector3 focal_point = get_reference_frame().from_plane(
-                        Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time);
+                        Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time)
+                                .add(get_direction(ray_time).scale(aperture_distance));
 
                 c = c.add(get_scene().cast_ray(
                         Line::between_points(

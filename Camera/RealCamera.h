@@ -14,12 +14,12 @@ class RealCamera : public Camera {
 private:
 
     int _reflections = 1;
-    int _samples = 200;
+    int _samples = 10;
 
     //Camera characteristics
     double sensor_size = 3.5;
     double focal_length = 5;
-    double lens_distance = 5.172;
+    double lens_distance = 5.16748;
     double aperture_size = 5;
     double aperture_distance = 10;
     double shutter_speed = 0.005;
@@ -39,8 +39,8 @@ public:
     void set_aperture_distance(double aperture_distance);
     void set_shutter_speed(double shutter_speed);
 
-    double get_focal_plane_distance();
-    double get_focal_plane_size();
+    double get_focal_plane_distance() const;
+    double get_focal_plane_size() const;
 
     std::string picture(int height, int width, double time) override;
 
