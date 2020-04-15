@@ -82,5 +82,3 @@ Color Scene::cast_ray(const Line& ray, int reflections, double time) const {
 
     return (closest_intersection.surface == nullptr || reflections == 0) ? Color() : surface_color(closest_intersection, ray, reflections, time);
 }
-
-

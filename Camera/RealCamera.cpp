@@ -68,11 +68,13 @@ std::string RealCamera::picture(int height, int width, double time) {
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
 
-            double ray_time = time + time_dis(gen);
+            Color max_color(0, 0, 0);
+            Color min_color(Constants::inf, Constants::inf, Constants::inf);
 
+            double ray_time = time + time_dis(gen);
             Color c;
 
-            for (int s=0; s < _samples; s++) {
+            for (int s=0; s < _first_samples; s++) {
 
                 double x = 0.5 - (width - i - 1 + dis(gen)) / (width-1);
                 double y = 0.5 - (j + dis(gen)) / (height-1);
@@ -81,17 +83,59 @@ std::string RealCamera::picture(int height, int width, double time) {
                         Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time)
                                 .add(get_direction(ray_time).scale(aperture_distance));
 
-                c = c.add(get_scene().cast_ray(
+                Color ray_color = get_scene().cast_ray(
                         Line::between_points(
                                 focal_point,
                                 get_reference_frame().from_plane(Vector2(focal_plane_size * x, focal_plane_size * y), ray_time)
                                         .add(get_direction(ray_time).scale(focal_plane_distance))),
                         _reflections + 1,
-                        ray_time));
+                        ray_time);
+
+                c = c.add(ray_color);
+
+                min_color = Color(
+                        std::min(min_color.get_r(), ray_color.get_r()),
+                        std::min(min_color.get_g(), ray_color.get_g()),
+                        std::min(min_color.get_b(), ray_color.get_b())
+                        );
+
+                max_color = Color(
+                        std::max(max_color.get_r(), ray_color.get_r()),
+                        std::max(max_color.get_g(), ray_color.get_g()),
+                        std::max(max_color.get_b(), ray_color.get_b())
+                        );
 
             }
 
-            c = c.scale(1.0/_samples);
+            Color color_diff = max_color.add(min_color.scale(-1));
+
+            int pixel_additional_samples = 0;
+
+            if (color_diff.get_r() + color_diff.get_g() + color_diff.get_b() > _additional_samples_threshold)
+                pixel_additional_samples = _additional_samples;
+
+            for (int s=0; s < pixel_additional_samples; s++) {
+
+                double x = 0.5 - (width - i - 1 + dis(gen)) / (width-1);
+                double y = 0.5 - (j + dis(gen)) / (height-1);
+
+                Vector3 focal_point = get_reference_frame().from_plane(
+                                Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time)
+                        .add(get_direction(ray_time).scale(aperture_distance));
+
+                Color ray_color = get_scene().cast_ray(
+                        Line::between_points(
+                                focal_point,
+                                get_reference_frame().from_plane(Vector2(focal_plane_size * x, focal_plane_size * y), ray_time)
+                                        .add(get_direction(ray_time).scale(focal_plane_distance))),
+                        _reflections + 1,
+                        ray_time);
+
+                c = c.add(ray_color);
+
+            }
+
+            c = c.scale(1.0/(_first_samples + pixel_additional_samples));
             result += RGB::to_rgb(c).to_string();
 
             std::cout<<j<<"/"<<height<<"\r";

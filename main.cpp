@@ -6,6 +6,7 @@
 #include <cmath>
 #include <fstream>
 #include <chrono>
+#include "Utils/BaseGeometry/Constants.h"
 #include "Utils/TimeGeometry/TimeVector3.h"
 #include "Utils/TimeGeometry/TimeUnitVector3.h"
 #include "Utils/TimeGeometry/TimeVector2.h"
@@ -73,9 +74,9 @@ int main() {
 
     // Regular picture
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c1.set_aperture_size(0.05);
+    c1.set_aperture_size(0.01);
     c1.set_shutter_speed(0.01);
-    print_picture(c1.picture(500, 500, 0), "picture1.ppm");
+    print_picture(c1.picture(100, 100, 0), "picture1.ppm");
 
     // High aperture (f1) picture
     RealCamera c2(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
@@ -85,7 +86,7 @@ int main() {
 
     // Low shutter speed picture
     RealCamera c3(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c3.set_aperture_size(0.05);
+    c3.set_aperture_size(0.01);
     c3.set_shutter_speed(0.1);
     print_picture(c3.picture(500, 500, 0), "picture3.ppm");
 

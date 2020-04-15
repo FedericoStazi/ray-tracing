@@ -5,7 +5,6 @@
 #ifndef CPP_GRAPHICS_REALCAMERA_H
 #define CPP_GRAPHICS_REALCAMERA_H
 
-
 #include <string>
 #include "Camera.h"
 
@@ -14,7 +13,9 @@ class RealCamera : public Camera {
 private:
 
     int _reflections = 1;
-    int _samples = 10;
+    int _first_samples = 10;
+    int _additional_samples = 100;
+    double _additional_samples_threshold = 0.2;
 
     //Camera characteristics
     double sensor_size = 3.5;

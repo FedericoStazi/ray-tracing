@@ -5,7 +5,6 @@
 #ifndef CPP_GRAPHICS_CONSTANTS_H
 #define CPP_GRAPHICS_CONSTANTS_H
 
-
 #include <limits>
 
 struct Constants {
