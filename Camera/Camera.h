@@ -9,6 +9,7 @@
 #include <string>
 #include "../Scene.h"
 #include "../Entity.h"
+#include "../Picture.h"
 
 class Camera : public Entity {
 
@@ -27,7 +28,7 @@ public:
 
     UnitVector3 get_direction(double time);
 
-    virtual std::string picture(int height, int width, double time) = 0;
+    virtual Picture picture(int height, int width, double time) = 0;
 
 };
 

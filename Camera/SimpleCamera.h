@@ -19,7 +19,7 @@ private:
 public:
 
     SimpleCamera(const ReferenceFrame &referenceFrame, const Scene &scene);
-    std::string picture(int height, int width, double time) override;
+    Picture picture(int height, int width, double time) override;
 
 };
 

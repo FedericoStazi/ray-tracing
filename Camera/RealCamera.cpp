@@ -7,6 +7,7 @@
 #include <utility>
 #include "RealCamera.h"
 #include "../Aspect/RGB.h"
+#include "../Picture.h"
 
 RealCamera::RealCamera(const ReferenceFrame &referenceFrame, const Scene &scene) : Camera(referenceFrame, scene) {}
 
@@ -52,7 +53,9 @@ double RealCamera::get_focal_plane_size() const {
     return get_focal_plane_distance() * sensor_size / lens_distance;;
 }
 
-std::string RealCamera::picture(int height, int width, double time) {
+Picture RealCamera::picture(int height, int width, double time) {
+
+    Picture result(height, width);
 
     double focal_plane_size = get_focal_plane_size();
     double focal_plane_distance = get_focal_plane_distance();
@@ -63,49 +66,15 @@ std::string RealCamera::picture(int height, int width, double time) {
     std::uniform_real_distribution<> dis(-0.5, 0.5);
     std::uniform_real_distribution<> time_dis(0, shutter_speed);
 
-    std::string result;
-
     for (int j = 0; j < height; j++) {
         for (int i = 0; i < width; i++) {
 
             Color max_color(0, 0, 0);
             Color min_color(Constants::inf, Constants::inf, Constants::inf);
 
-            double ray_time = time + time_dis(gen);
-            Color c;
+          double ray_time = time + time_dis(gen);
+          Color c;
 
-            for (int s=0; s < _first_samples; s++) {
-
-                double x = 0.5 - (width - i - 1 + dis(gen)) / (width-1);
-                double y = 0.5 - (j + dis(gen)) / (height-1);
-
-                Vector3 focal_point = get_reference_frame().from_plane(
-                        Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time)
-                                .add(get_direction(ray_time).scale(aperture_distance));
-
-                Color ray_color = get_scene().cast_ray(
-                        Line::between_points(
-                                focal_point,
-                                get_reference_frame().from_plane(Vector2(focal_plane_size * x, focal_plane_size * y), ray_time)
-                                        .add(get_direction(ray_time).scale(focal_plane_distance))),
-                        _reflections + 1,
-                        ray_time);
-
-                c = c.add(ray_color);
-
-                min_color = Color(
-                        std::min(min_color.get_r(), ray_color.get_r()),
-                        std::min(min_color.get_g(), ray_color.get_g()),
-                        std::min(min_color.get_b(), ray_color.get_b())
-                        );
-
-                max_color = Color(
-                        std::max(max_color.get_r(), ray_color.get_r()),
-                        std::max(max_color.get_g(), ray_color.get_g()),
-                        std::max(max_color.get_b(), ray_color.get_b())
-                        );
-
-            }
 
             Color color_diff = max_color.add(min_color.scale(-1));
 
@@ -136,16 +105,41 @@ std::string RealCamera::picture(int height, int width, double time) {
             }
 
             c = c.scale(1.0/(_first_samples + pixel_additional_samples));
-            result += RGB::to_rgb(c).to_string();
+            result.set_pixel(j, i, RGB::to_rgb(c));
 
+            // print status
             std::cout<<j<<"/"<<height<<"\r";
 
         }
-
-        result += "\n";
     }
 
-
-    return "P3\n"+std::to_string(height)+" "+std::to_string(width)+"\n255\n" + result;
+    return result;
 
 }
+
+std::pair<Color, int> RealCamera::cast_n_rays(int j, int i, int n, int time, double (*)(double)) {
+
+    std::vector<Color> samples;
+
+    for (int s=0; s < n; s++) {
+
+        double ray_time =
+
+        double x = 0.5 - (width - i - 1 + dis(gen)) / (width-1);
+        double y = 0.5 - (j + dis(gen)) / (height-1);
+
+        Vector3 focal_point = get_reference_frame().from_plane(
+                Vector2(aperture_size * dis(gen), aperture_size * dis(gen)), ray_time)
+            .add(get_direction(ray_time).scale(aperture_distance));
+
+        Color ray_color = get_scene().cast_ray(
+            Line::between_points(
+                focal_point,
+                get_reference_frame().from_plane(Vector2(focal_plane_size * x, focal_plane_size * y), ray_time)
+                    .add(get_direction(ray_time).scale(focal_plane_distance))),
+            _reflections + 1,
+            ray_time);
+
+        s.push_back(ray_color);
+
+  }

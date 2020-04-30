@@ -7,6 +7,7 @@
 
 #include <string>
 #include "Camera.h"
+#include "../Picture.h"
 
 class RealCamera : public Camera {
 
@@ -43,7 +44,9 @@ public:
     double get_focal_plane_distance() const;
     double get_focal_plane_size() const;
 
-    std::string picture(int height, int width, double time) override;
+    Picture picture(int height, int width, double time) override;
+
+    std::pair<Color, int> cast_n_rays(int j, int i, int n, int time, double (double));
 
 };
 

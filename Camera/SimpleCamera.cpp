@@ -8,9 +8,9 @@
 
 SimpleCamera::SimpleCamera(const ReferenceFrame &referenceFrame, const Scene &scene) : Camera(referenceFrame, scene) {}
 
-std::string SimpleCamera::picture(int height, int width, double time) {
+Picture SimpleCamera::picture(int height, int width, double time) {
 
-    std::string result;
+    Picture result(height, width);
 
     for (int j = height - 1; j >= 0; j--) {
         for (int i = 0; i < width; i++) {
@@ -25,15 +25,13 @@ std::string SimpleCamera::picture(int height, int width, double time) {
                     _reflections + 1,
                     time);
 
-            result += RGB::to_rgb(c).to_string();
+            result.set_pixel(j, i, RGB::to_rgb(c));
 
         }
 
-        result += "\n";
     }
 
-
-    return "P3\n"+std::to_string(height)+" "+std::to_string(width)+"\n255\n" + result;
+    return result;
 
 }
 

@@ -21,10 +21,19 @@
 #include "Surface/Square.h"
 #include "Camera/RealCamera.h"
 
-void print_picture(const std::string& picture, const std::string& file = (std::string) "pic.ppm", bool open = false) {
+void print_picture(const Picture& picture, const std::string& file = (std::string) "pic.ppm", bool open = false) {
+
+    std::string str;
+
+    for (int j=0; j<picture.get_height(); j++) {
+      for (int i = 0; i < picture.get_width(); i++)
+        str += picture.get_pixel(j, i).to_string();
+      str += "\n";
+    }
 
     std::ofstream out(file);
-    out<<picture<<std::endl;
+    str = "P3\n"+std::to_string(picture.get_height())+" "+std::to_string(picture.get_width())+"\n255\n" + str;
+    out<<str<<std::endl;
 
     if (open) {
         std::string command = "xdg-open " + file;
@@ -74,10 +83,12 @@ int main() {
 
     // Regular picture
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c1.set_aperture_size(0.01);
-    c1.set_shutter_speed(0.01);
-    print_picture(c1.picture(100, 100, 0), "picture1.ppm");
-
+    //c1.set_aperture_size(0.01);
+    c1.set_aperture_size(0.1);
+    c1.set_shutter_speed(0);
+    print_picture(c1.picture(200, 200, 0), "picture1.ppm");
+    system("xdg-open picture1.ppm");
+/*
     // High aperture (f1) picture
     RealCamera c2(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c2.set_aperture_size(5);
@@ -95,5 +106,5 @@ int main() {
     c4.set_aperture_size(5);
     c4.set_shutter_speed(0.1);
     print_picture(c4.picture(500, 500, 0), "picture4.ppm");
-
+*/
 }
