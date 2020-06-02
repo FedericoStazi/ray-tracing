@@ -19,7 +19,7 @@ Picture Renderer::picture(int height, int width, double time) const {
         RayRequest(Vector2 position, int size, double variance, Color color) :
             position(std::move(position)), size(size), variance(variance), color(color) {}
         [[nodiscard]] double get_priority() const {
-            return log2(variance) - 2*size;
+            return log2(variance) - size;
         }
         bool operator<(const RayRequest& other) const {
             return other.get_priority() > get_priority();
@@ -110,8 +110,8 @@ Picture Renderer::picture(int height, int width, double time) const {
 
     while (!queue.empty() and max_requests--) {
 
-        if (max_requests%100 == 0)
-            std::cout<<max_requests<<std::endl;
+        if (max_requests%1000 == 0)
+            std::cerr << max_requests << "\r";
 
         PixelRenderer pixel = queue.top();
         queue.pop();
