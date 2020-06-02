@@ -83,10 +83,9 @@ int main() {
 
     // Regular picture
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    //c1.set_aperture_size(0.01);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
-    print_picture(c1.picture(200, 200, 0), "picture1.ppm");
+    print_picture(c1.picture(256, 256, 0), "picture1.ppm");
     system("xdg-open picture1.ppm");
 /*
     // High aperture (f1) picture

@@ -12,6 +12,8 @@ TimeFunction::TimeFunction(double value) : _value(value), _is_function(false) {}
 
 double TimeFunction::get(double time) const {
 
+    return _value;
+    /*
     if (!_is_function) {
         return _value;
     } else {
@@ -23,4 +25,5 @@ double TimeFunction::get(double time) const {
 
         return _cached;
     }
+     */
 }

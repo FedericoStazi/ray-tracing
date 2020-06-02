@@ -3,6 +3,8 @@
 //
 
 #include "Picture.h"
+#include <cassert>
+#include <iostream>
 
 Picture::Picture(int height, int width) : height(height), width(width),
                                     pixels(std::vector<std::vector<RGB>>(height, std::vector<RGB>(width, RGB(0, 0, 0)))) {}
@@ -10,6 +12,11 @@ Picture::Picture(int height, int width) : height(height), width(width),
 void Picture::set_pixel(int h, int w, RGB c) {
   if (h >= 0 && w >= 0 && h < height && w < width)
     pixels[h][w] = c;
+  else {
+      std::cout<<h<<" "<<w<<std::endl;
+      assert(false);
+  }
+
 }
 
 RGB Picture::get_pixel(int h, int w) const {

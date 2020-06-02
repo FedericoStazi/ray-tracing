@@ -8,15 +8,14 @@
 #include <string>
 #include "Camera.h"
 #include "../Picture.h"
+#include "../Renderer/Renderer.h"
 
 class RealCamera : public Camera {
 
 private:
 
     int _reflections = 1;
-    int _first_samples = 10;
-    int _additional_samples = 100;
-    double _additional_samples_threshold = 0.2;
+    int _first_samples = 20;
 
     //Camera characteristics
     double sensor_size = 3.5;
@@ -25,6 +24,12 @@ private:
     double aperture_size = 5;
     double aperture_distance = 10;
     double shutter_speed = 0.005;
+
+    static int additional_samples(double k) {
+        return (int) k + (int) (100.0 * sqrt(k));
+    }
+
+    const Renderer renderer;
 
 public:
 
@@ -45,8 +50,10 @@ public:
     double get_focal_plane_size() const;
 
     Picture picture(int height, int width, double time) override;
+    Picture picture_old(int height, int width, double time);
 
-    std::pair<Color, int> cast_n_rays(int j, int i, int n, int time, double (double));
+    std::pair<Color, double> cast_n_rays(int height, int width, int j, int i, double time, int n);
+    Color cast_ray(Vector2 position, double time);
 
 };
 

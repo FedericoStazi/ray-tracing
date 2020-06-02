@@ -30,6 +30,8 @@ public:
 
     virtual Picture picture(int height, int width, double time) = 0;
 
+    virtual Color cast_ray(Vector2 position, double time) = 0;
+
 };
 
 
