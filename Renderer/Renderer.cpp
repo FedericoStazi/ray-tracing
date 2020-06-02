@@ -19,7 +19,7 @@ Picture Renderer::picture(int height, int width, double time) const {
         RayRequest(Vector2 position, int size, double variance, Color color) :
             position(std::move(position)), size(size), variance(variance), color(color) {}
         [[nodiscard]] double get_priority() const {
-            return log2(variance) - size;
+            return log2(variance+1) - 2*size;
         }
         bool operator<(const RayRequest& other) const {
             return other.get_priority() > get_priority();
@@ -29,7 +29,7 @@ Picture Renderer::picture(int height, int width, double time) const {
     class PixelRenderer {
     public:
 
-        int sub_squares=1; //2^i per side
+        int sub_squares=2; //2^i per side
         int x, y;
         std::priority_queue<RayRequest> requests;
 
@@ -101,16 +101,16 @@ Picture Renderer::picture(int height, int width, double time) const {
 
     };
 
-    int max_requests = 10 * height * width;
+    int max_requests = 25 * height * width;
 
     std::priority_queue<PixelRenderer> queue;
     for (int i=0; i<height; i++)
         for (int j=0; j<height; j++)
             queue.push(PixelRenderer(i, j));
 
-    while (!queue.empty() and max_requests--) {
+    while (max_requests--) {
 
-        if (max_requests%1000 == 0)
+        if (max_requests%10000 == 0)
             std::cerr << max_requests << "\r";
 
         PixelRenderer pixel = queue.top();

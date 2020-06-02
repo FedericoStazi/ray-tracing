@@ -77,8 +77,6 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line
 }
 
 Color Scene::cast_ray(const Line& ray, int reflections, double time) const {
-
     IntersectionData closest_intersection = ray_intersection(ray, time);
-
     return (closest_intersection.surface == nullptr || reflections == 0) ? Color() : surface_color(closest_intersection, ray, reflections, time);
 }

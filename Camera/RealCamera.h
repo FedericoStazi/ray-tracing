@@ -50,9 +50,6 @@ public:
     double get_focal_plane_size() const;
 
     Picture picture(int height, int width, double time) override;
-    Picture picture_old(int height, int width, double time);
-
-    std::pair<Color, double> cast_n_rays(int height, int width, int j, int i, double time, int n);
     Color cast_ray(Vector2 position, double time);
 
 };
