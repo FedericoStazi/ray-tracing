@@ -8,6 +8,7 @@
 #include "TimeFunction.h"
 #include "../BaseGeometry/Vector3.h"
 
+class Vector3;
 class TimeVector3 : public Vector3{
 
     using Vector3::Vector3;
