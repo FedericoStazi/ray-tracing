@@ -13,6 +13,7 @@ class Basis {
 private:
 
     TimeUnitVector3 x_base, y_base, z_base;
+    bool _check_orthonormal = false; // if true checks if basis is orthonormal every time
 
     [[nodiscard]] bool _orthonormal(double time) const;
 

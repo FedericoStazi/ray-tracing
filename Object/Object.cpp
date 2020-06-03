@@ -13,7 +13,6 @@ void Object::add(Surface *surface) {
 
 std::vector<std::pair<double, Surface *>> Object::intersections(const Line& ray, double time) {
 
-
     std::vector<std::pair<double, Surface *>> result;
 
     if (ray.distance(get_reference_frame().get_location(time), time) < furthest_distance)

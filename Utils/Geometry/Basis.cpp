@@ -22,21 +22,21 @@ Basis::Basis() : x_base(TimeUnitVector3(1, 0, 0)),
                  z_base(TimeUnitVector3(0, 0, 1)) {}
 
 UnitVector3 Basis::get_x_base(double time) const {
-    if (Basis::_orthonormal(time))
+    if (!_check_orthonormal or Basis::_orthonormal(time))
         return x_base.time(time);
     else
         throw Basis::NonOrthonormalBases();
 }
 
 UnitVector3 Basis::get_y_base(double time) const {
-    if (Basis::_orthonormal(time))
+    if (!_check_orthonormal or Basis::_orthonormal(time))
         return y_base.time(time);
     else
         throw Basis::NonOrthonormalBases();
 }
 
 UnitVector3 Basis::get_z_base(double time) const {
-    if (Basis::_orthonormal(time))
+    if (!_check_orthonormal or Basis::_orthonormal(time))
         return z_base.time(time);
     else
         throw Basis::NonOrthonormalBases();

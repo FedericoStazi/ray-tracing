@@ -90,6 +90,7 @@ Picture Renderer::picture(int height, int width, double time) const {
 
         //called at the end, can do anything with requests queue
         Color get_color() {
+            return Color((double)requests.size()/10, (double)requests.size()/100, (double)requests.size()/1000);
             Color result;
             while (!requests.empty()) {
                 RayRequest req = requests.top();
