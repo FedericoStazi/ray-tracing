@@ -50,9 +50,9 @@ int main() {
 
     // Set of object aspects
 
-    Aspect aspect1(RGB(20, 100, 200).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.05, 0.05, 0.05), 5);
+    Aspect aspect1(RGB(20, 100, 200).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
     Aspect aspect2(RGB(150, 150, 150).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
-    Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0.5, 0.5, 0.5), 2);
+    Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
     Aspect aspect4(RGB(140, 230, 64).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
 
     // Scene elements
@@ -73,7 +73,7 @@ int main() {
             TimeUnitVector3(0, -1, 0)
             )), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 400)));
 
-    scene.add(new Cube(ReferenceFrame(TimeVector3(-30, 20, -100), Basis()), aspect1, 40));
+    scene.add(new Cube(ReferenceFrame(TimeVector3(-60, 20, -80), Basis()), aspect1, 40));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 50, 30), Basis()), Color(0.5, 0.5, 0.5)));
 
