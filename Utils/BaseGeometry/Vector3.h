@@ -17,7 +17,7 @@ class Vector3 : public Eigen::Vector3f {
 public:
 
     // TODO this is a test
-    Vector3() : EiEigen::Vector3f() {};
+    Vector3() : Eigen::Vector3f() {};
 
     [[nodiscard]] bool equals(const Vector3& v) const;
     [[nodiscard]] float distance(const Vector3& v) const;
