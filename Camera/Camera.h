@@ -26,11 +26,11 @@ public:
 
     [[nodiscard]] Scene get_scene() const;
 
-    UnitVector3 get_direction(double time);
+    UnitVector3 get_direction(float time);
 
-    virtual Picture picture(int height, int width, double time) = 0;
+    virtual Picture picture(int height, int width, float time) = 0;
 
-    virtual Color cast_ray(Vector2 position, double time) = 0;
+    virtual Color cast_ray(Vector2 position, float time) = 0;
 
 };
 

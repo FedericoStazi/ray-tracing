@@ -12,11 +12,11 @@ ReferenceFrame generate_reference_frame(const Vector3 &position, const Vector3 &
 
     Vector3 vector_down = Vector3(0, position.y(), 0);
 
-    TimeUnitVector3 z_base = TimeUnitVector3(Line::between_points(point, position).get_direction(0));
-    TimeUnitVector3 x_base = TimeUnitVector3(vector_down.cross_product(z_base.time(0)).normalized());
-    TimeUnitVector3 y_base = TimeUnitVector3(z_base.time(0).cross_product(x_base.time(0)));
+    TimeUnitVector3 z_base = static_cast<TimeUnitVector3>(Line::between_points(point, position).get_direction(0));
+    TimeUnitVector3 x_base = static_cast<TimeUnitVector3>(static_cast<Vector3>(vector_down.cross(z_base.time(0)).normalized()));
+    TimeUnitVector3 y_base = static_cast<TimeUnitVector3>(static_cast<Vector3>(z_base.time(0).cross(x_base.time(0))));
 
-    return ReferenceFrame(TimeVector3(position), Basis(x_base, y_base, z_base));
+    return ReferenceFrame(static_cast<TimeVector3>(position), Basis(x_base, y_base, z_base));
 
 }
 
@@ -26,6 +26,6 @@ Scene Camera::get_scene() const {
     return scene;
 }
 
-UnitVector3 Camera::get_direction(double time) {
-    return UnitVector3(get_reference_frame().get_orientation().get_z_base(time).scale(-1));
+UnitVector3 Camera::get_direction(float time) {
+    return static_cast<UnitVector3>(get_reference_frame().get_orientation().get_z_base(time) * (-1));
 }

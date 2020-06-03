@@ -21,7 +21,7 @@ public:
     };
 
     explicit Vector2(Vector3 v);
-    Vector2(double x, double y);
+    Vector2(float x, float y);
     Vector2();
 
 };

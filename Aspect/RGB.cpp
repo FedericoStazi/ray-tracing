@@ -10,25 +10,25 @@ std::string RGB::to_string() {
     return std::to_string(_r)+" "+std::to_string(_g)+" "+std::to_string(_b)+" ";
 }
 
-int RGB::_to_rgb(double i) {
+int RGB::_to_rgb(float i) {
 
     if (i < 0)
         throw NegativeIntensityException();
 
     //tone mapping
-    double p = pow(i, b);
-    double k = std::min(1.0, p / (p + 1/pow(2*a, b)));
+    float p = pow(i, b);
+    float k = std::min(1.0, p / (p + 1/pow(2*a, b)));
 
     //display encoding
     return (int) (pow(k, gamma) * 255.0);
 
 }
 
-double RGB::_from_rgb(int c) {
+float RGB::_from_rgb(int c) {
 
-    double k = pow((double) c / 255, 1/gamma);
+    float k = pow((float) c / 255, 1/gamma);
 
-    double p = k / (pow(2*a, b) * (1 - k));
+    float p = k / (pow(2*a, b) * (1 - k));
 
     return pow(p, 1/b);
 

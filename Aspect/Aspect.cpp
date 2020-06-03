@@ -20,9 +20,9 @@ const Color &Aspect::get_k_mirror() const {
     return k_mirror;
 }
 
-double Aspect::get_roughness() const {
+float Aspect::get_roughness() const {
     return roughness;
 }
 
-Aspect::Aspect(const Color &k_diffuse, const Color &k_specular, const Color &k_mirror, double roughness) : k_diffuse(
+Aspect::Aspect(const Color &k_diffuse, const Color &k_specular, const Color &k_mirror, float roughness) : k_diffuse(
         k_diffuse), k_specular(k_specular), k_mirror(k_mirror), roughness(roughness) {}

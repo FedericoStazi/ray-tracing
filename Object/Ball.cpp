@@ -5,6 +5,6 @@
 #include "Ball.h"
 #include "../Surface/Sphere.h"
 
-Ball::Ball(const ReferenceFrame &referenceFrame, Aspect aspect, double radius) : Object(referenceFrame), radius(radius) {
+Ball::Ball(const ReferenceFrame &referenceFrame, Aspect aspect, float radius) : Object(referenceFrame), radius(radius) {
     add(new Sphere(ReferenceFrame(), aspect, radius));
 }

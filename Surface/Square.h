@@ -12,11 +12,11 @@ class Square : public Surface {
 
 private:
 
-    double side;
+    float side;
 
 public:
 
-    Square(const ReferenceFrame &referenceFrame, const Aspect &aspect, double side);
+    Square(const ReferenceFrame &referenceFrame, const Aspect &aspect, float side);
 
 };
 

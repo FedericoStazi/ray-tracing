@@ -12,25 +12,25 @@ class Color {
 
 private:
 
-    double _r, _g, _b;
+    float _r, _g, _b;
 
 public:
 
-    static int tone_mapping(double k);
+    static int tone_mapping(float k);
 
     Color();
-    Color(double r, double g, double b);
+    Color(float r, float g, float b);
 
-    [[nodiscard]] double get_r() const;
-    Color set_r(double r);
-    [[nodiscard]] double get_g() const;
-    Color set_g(double g);
-    [[nodiscard]] double get_b() const;
-    Color set_b(double b);
+    [[nodiscard]] float get_r() const;
+    Color set_r(float r);
+    [[nodiscard]] float get_g() const;
+    Color set_g(float g);
+    [[nodiscard]] float get_b() const;
+    Color set_b(float b);
 
     [[nodiscard]] Color add(Color c) const;
 
-    [[nodiscard]] Color scale(double k) const;
+    [[nodiscard]] Color scale(float k) const;
     [[nodiscard]] Color scale(const Color & c) const;
 
     [[nodiscard]] bool is_zero() const;

@@ -23,17 +23,17 @@ public:
     Line(const Vector3& location, const UnitVector3& direction);
     Line();
 
-    [[nodiscard]] Vector3 get_location(double time) const;
-    [[nodiscard]] UnitVector3 get_direction(double time) const;
+    [[nodiscard]] Vector3 get_location(float time) const;
+    [[nodiscard]] UnitVector3 get_direction(float time) const;
 
-    [[nodiscard]] double distance (const Vector3& vector, double time) const;
-    [[nodiscard]] double distance (const TimeVector3& vector, double time) const;
+    [[nodiscard]] float distance (const Vector3& vector, float time) const;
+    [[nodiscard]] float distance (const TimeVector3& vector, float time) const;
 
-    [[nodiscard]] Vector3 evaluate (double k, double time) const;
+    [[nodiscard]] Vector3 evaluate (float k, float time) const;
 
     static Line between_points(const Vector3& a, const Vector3& b);
 
-    [[nodiscard]] std::string to_string(double time) const;
+    [[nodiscard]] std::string to_string(float time) const;
 
 
 };

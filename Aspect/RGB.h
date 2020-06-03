@@ -21,13 +21,13 @@ private:
 
     int _r, _g, _b;
 
-    static constexpr double a = 2;
-    static constexpr double b = 1.3;
+    static constexpr float a = 2;
+    static constexpr float b = 1.3;
 
-    static constexpr double gamma = 2.2;
+    static constexpr float gamma = 2.2;
 
-    static int _to_rgb(double i);
-    static double _from_rgb(int c);
+    static int _to_rgb(float i);
+    static float _from_rgb(int c);
 
 public:
 

@@ -13,4 +13,4 @@ Based on Phong's and Lambertian's shading
 
 - Objects are inscribed in a sphere. If the ray does not touch the sphere, the intersection is not calculated at all
 
-- Functions of time can be a lambda or a double  if the function is constant, and have a caching optimization
+- Functions of time can be a lambda or a float  if the function is constant, and have a caching optimization

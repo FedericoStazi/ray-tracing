@@ -21,7 +21,7 @@ private:
 
     std::set<Surface*> surfaces;
 
-    double furthest_distance = 0;
+    float furthest_distance = 0;
 
 protected:
 
@@ -31,7 +31,7 @@ protected:
 
 public:
 
-    std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time);
+    std::vector<std::pair<float, Surface *>> intersections(const Line& ray, float time);
 
 };
 

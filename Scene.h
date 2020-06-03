@@ -24,23 +24,23 @@ private:
 
     class IntersectionData {
     public:
-        double distance;
+        float distance;
         Surface * surface;
         Object * object;
 
         IntersectionData() : distance(Constants::inf), surface(nullptr), object(nullptr) {}
-        IntersectionData(double distance, Surface *surface, Object *object) : distance(distance), surface(surface), object(object) {}
+        IntersectionData(float distance, Surface *surface, Object *object) : distance(distance), surface(surface), object(object) {}
     };
 
-    [[nodiscard]] IntersectionData ray_intersection(const Line& ray, double time) const;
-    [[nodiscard]] Color surface_color(IntersectionData intersection_data, const Line& ray, int reflections, double time) const;
+    [[nodiscard]] IntersectionData ray_intersection(const Line& ray, float time) const;
+    [[nodiscard]] Color surface_color(IntersectionData intersection_data, const Line& ray, int reflections, float time) const;
 
 public:
 
     void add(Object* object);
     void add(Light* light);
 
-    [[nodiscard]] Color cast_ray(const Line& ray, int reflections, double time) const;
+    [[nodiscard]] Color cast_ray(const Line& ray, int reflections, float time) const;
 
 };
 

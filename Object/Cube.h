@@ -12,11 +12,11 @@ class Cube : public Object{
 
 private:
 
-    double side;
+    float side;
 
 public:
 
-    Cube(const ReferenceFrame &referenceFrame, Aspect aspect, double side);
+    Cube(const ReferenceFrame &referenceFrame, Aspect aspect, float side);
 
 };
 

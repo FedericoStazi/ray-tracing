@@ -9,8 +9,8 @@
 
 struct Constants {
 public:
-    constexpr static double eps = 1e-6;
-    constexpr static double inf = std::numeric_limits<double>::infinity();
+    constexpr static float eps = 1e-4;
+    constexpr static float inf = std::numeric_limits<float>::infinity();
 };
 
 

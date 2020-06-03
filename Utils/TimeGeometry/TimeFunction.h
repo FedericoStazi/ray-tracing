@@ -11,24 +11,25 @@ class TimeFunction {
 
 private:
 
-    typedef std::function<double(double)> _function_type;
+    typedef std::function<float(float)> _function_type;
 
-    bool _is_function;
+    bool _is_function{};
 
-    double _value = 0;
+    float _value = 0;
     _function_type _function;
 
     // caching
-    double EPS = 1e-6;
-    mutable double _last = 0;
-    mutable double _cached = 0;
+    float EPS = 1e-6;
+    mutable float _last = 0;
+    mutable float _cached = 0;
 
 public:
 
-    explicit TimeFunction(const _function_type&   value);
-    explicit TimeFunction(double value);
+    explicit TimeFunction(const _function_type& value);
+    explicit TimeFunction(float value);
+    TimeFunction() = default;
 
-    [[nodiscard]] double get(double time) const;
+    [[nodiscard]] float get(float time) const;
 
 };
 

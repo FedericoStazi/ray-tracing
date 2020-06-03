@@ -14,7 +14,7 @@ class Renderer {
 
 public:
     explicit Renderer(Camera& camera) : camera(camera) {};
-    [[nodiscard]] Picture picture(int height, int width, double time) const;
+    [[nodiscard]] Picture picture(int height, int width, float time) const;
 
 private:
     Camera& camera;

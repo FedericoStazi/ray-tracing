@@ -10,6 +10,6 @@ Vector2::Vector2(Vector3 v) : Vector3(std::move(v)) {
         throw Non2DException();
 }
 
-Vector2::Vector2(double x, double y) : Vector3(x, y, 0) {}
+Vector2::Vector2(float x, float y) : Vector3(x, y, 0) {}
 
 Vector2::Vector2() : Vector3() {}

@@ -60,7 +60,7 @@ int main() {
     Scene scene;
 
     scene.add(new Ball (ReferenceFrame(TimeVector3(
-            TimeFunction([=](double t){ return 100*t;}),
+            TimeFunction([=](float t){ return 100*t;}),
             TimeFunction(-10),
             TimeFunction(0)
             ), Basis()), aspect4, 10));
@@ -73,11 +73,11 @@ int main() {
             TimeUnitVector3(0, -1, 0)
             )), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 400)));
 
-    scene.add(new Cube(ReferenceFrame(TimeVector3(-30, 20, -100), Basis()), aspect1, 40));
+    scene.add(new Cube(ReferenceFrame(TimeVector3(-50, 20, -150), Basis()), aspect1, 40));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(0.5, 0.5, 0.5)));
 
-    scene.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, 100), Basis()), Color(0.5, 0.5, 0.5)));
+    scene.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, -100), Basis()), Color(0.5, 0.5, 0.5)));
 
     // Cameras
 
@@ -85,8 +85,8 @@ int main() {
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
-    print_picture(c1.picture(100, 100, 0), "picture1.ppm");
-    system("xdg-open picture1.ppm");
+    print_picture(c1.picture(256, 256, 0), "picture1.ppm");
+    //system("xdg-open picture1.ppm");
 /*
     // High aperture (f1) picture
     RealCamera c2(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);

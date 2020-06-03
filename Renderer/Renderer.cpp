@@ -7,18 +7,18 @@
 #include "Renderer.h"
 #include "../Utils/BaseGeometry/Vector2.h"
 
-Picture Renderer::picture(int height, int width, double time) const {
+Picture Renderer::picture(int height, int width, float time) const {
 
     class RayRequest {
     public:
         Vector2 position; // bottom left corner, in [0,1) in the pixel
         int size = 0; // side has length 2^-size
-        double variance = Constants::inf;
+        float variance = Constants::inf;
         Color color;
         RayRequest() = default;
-        RayRequest(Vector2 position, int size, double variance, Color color) :
+        RayRequest(Vector2 position, int size, float variance, Color color) :
             position(std::move(position)), size(size), variance(variance), color(color) {}
-        [[nodiscard]] double get_priority() const {
+        [[nodiscard]] float get_priority() const {
             return log2(variance+1) - 2*size;
         }
         bool operator<(const RayRequest& other) const {
@@ -39,7 +39,7 @@ Picture Renderer::picture(int height, int width, double time) const {
             requests.push(RayRequest(Vector2(0,0), 0, Constants::inf, Color()));
         };
 
-        [[nodiscard]] double get_priority() const {
+        [[nodiscard]] float get_priority() const {
             return requests.top().get_priority();
         }
 
@@ -56,9 +56,9 @@ Picture Renderer::picture(int height, int width, double time) const {
 
             for (int i=0; i<(1<<sub_squares); i++)
                 for (int j=0; j<(1<<sub_squares); j++)
-                    points.push_back( (Vector2)
-                      active_request.position.add(
-                          Vector2(i,j).scale(
+                    points.push_back( static_cast<Vector2> (
+                      active_request.position + (
+                          Vector2(i,j) *
                               pow(0.5,sub_squares+active_request.size))));
 
             return points;
@@ -76,13 +76,13 @@ Picture Renderer::picture(int height, int width, double time) const {
             for (int i=0; i<(1<<sub_squares); i++)
                 for (int j=0; j<(1<<sub_squares); j++) {
                     Color c = colors[i * (1<<sub_squares) + j];
-                    double variance =
+                    float variance =
                         (c.get_r() - mean.get_r()) * (c.get_r() - mean.get_r()) +
                         (c.get_g() - mean.get_g()) * (c.get_g() - mean.get_g()) +
                         (c.get_b() - mean.get_b()) * (c.get_b() - mean.get_b());
                     RayRequest new_request(
-                        (Vector2)active_request.position.add(
-                            Vector2(i,j).scale(pow(0.5,sub_squares+active_request.size))),
+                        static_cast<Vector2> (active_request.position + (
+                            Vector2(i,j) * (pow(0.5,sub_squares+active_request.size)))),
                         active_request.size + sub_squares, variance, c);
                     requests.push(new_request);
                 }
@@ -90,7 +90,7 @@ Picture Renderer::picture(int height, int width, double time) const {
 
         //called at the end, can do anything with requests queue
         Color get_color() {
-            return Color((double)requests.size()/10, (double)requests.size()/100, (double)requests.size()/1000);
+            //return Color((float)requests.size()/10, (float)requests.size()/100, (float)requests.size()/1000);
             Color result;
             while (!requests.empty()) {
                 RayRequest req = requests.top();
@@ -102,7 +102,7 @@ Picture Renderer::picture(int height, int width, double time) const {
 
     };
 
-    int max_requests = 25 * height * width;
+    int max_requests = 10 * height * width;
 
     std::priority_queue<PixelRenderer> queue;
     for (int i=0; i<height; i++)
@@ -111,7 +111,7 @@ Picture Renderer::picture(int height, int width, double time) const {
 
     while (max_requests--) {
 
-        if (max_requests%10000 == 0)
+        if (max_requests%1000 == 0)
             std::cerr << max_requests << "\r";
 
         PixelRenderer pixel = queue.top();
@@ -121,9 +121,9 @@ Picture Renderer::picture(int height, int width, double time) const {
 
         colors.reserve(requests.size());
         for (const Vector2& point:requests) {
-            Vector2 screen_point = (Vector2)
-                Vector2((double)pixel.x/width, (double)pixel.y/height)
-                    .add(Vector2(point.x() /width, point.y()/height));
+            Vector2 screen_point = static_cast<Vector2> (
+                Vector2((float)pixel.x/width, (float)pixel.y/height)
+                    + (Vector2(point.x() /width, point.y()/height)));
             colors.push_back(camera.cast_ray(screen_point, 0));
         }
 

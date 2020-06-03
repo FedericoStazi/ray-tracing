@@ -13,13 +13,13 @@ class SimpleCamera : public Camera {
 private:
 
     int _reflections = 1;
-    double sensor_size = 0.2;
-    double lens_distance = 0.5;
+    float sensor_size = 0.2;
+    float lens_distance = 0.5;
 
 public:
 
     SimpleCamera(const ReferenceFrame &referenceFrame, const Scene &scene);
-    Picture picture(int height, int width, double time) override;
+    Picture picture(int height, int width, float time) override;
 
 };
 

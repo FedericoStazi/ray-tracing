@@ -13,9 +13,12 @@ class Basis {
 private:
 
     TimeUnitVector3 x_base, y_base, z_base;
-    bool _check_orthonormal = false; // if true checks if basis is orthonormal every time
+    Eigen::Matrix3f basis_matrix;
 
-    [[nodiscard]] bool _orthonormal(double time) const;
+    bool _check_orthonormal = false; // if true checks if basis is orthonormal every time
+    bool _no_time = false; //if true can use the same basis matrix every time
+
+    [[nodiscard]] bool _orthonormal(float time) const;
 
 public:
 
@@ -28,11 +31,13 @@ public:
     Basis(TimeUnitVector3 xBase, TimeUnitVector3 yBase, TimeUnitVector3 zBase);
     Basis();
 
-    [[nodiscard]] UnitVector3 get_x_base(double time) const;
-    [[nodiscard]] UnitVector3 get_y_base(double time) const;
-    [[nodiscard]] UnitVector3 get_z_base(double time) const;
+    [[nodiscard]] UnitVector3 get_x_base(float time) const;
+    [[nodiscard]] UnitVector3 get_y_base(float time) const;
+    [[nodiscard]] UnitVector3 get_z_base(float time) const;
 
-    Basis rotate(double x, double y, double z, double time);
+    Basis rotate(float x, float y, float z, float time);
+
+    Eigen::Matrix3f get_matrix(float time) const;
 
 };
 

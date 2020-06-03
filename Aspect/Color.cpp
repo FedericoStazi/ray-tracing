@@ -6,36 +6,36 @@
 #include "../Utils/BaseGeometry/Constants.h"
 
 
-Color::Color(double r, double g, double b) : _r(r), _g(g), _b(b) {}
+Color::Color(float r, float g, float b) : _r(r), _g(g), _b(b) {}
 
 Color::Color() : Color(0, 0, 0) {}
 
-int Color::tone_mapping(double k) {
+int Color::tone_mapping(float k) {
     return (int) (255.0 *std::erf(k));
 }
 
-double Color::get_r() const {
+float Color::get_r() const {
     return _r;
 }
 
-Color Color::set_r(double r) {
+Color Color::set_r(float r) {
     return Color(r, get_g(), get_b());
 }
 
-double Color::get_g() const {
+float Color::get_g() const {
     return _g;
 }
 
-Color Color::set_g(double g) {
+Color Color::set_g(float g) {
     return Color(get_r(), g, get_b());
 }
 
-double Color::get_b() const {
+float Color::get_b() const {
     return _b;
 }
 
 
-Color Color::set_b(double b) {
+Color Color::set_b(float b) {
     return Color(get_r(), get_g(), b);
 }
 
@@ -48,7 +48,7 @@ Color Color::add(Color c) const {
             );
 }
 
-Color Color::scale(double k) const {
+Color Color::scale(float k) const {
     return Color(
             get_r() * k,
             get_g() * k,

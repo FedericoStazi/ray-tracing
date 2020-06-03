@@ -8,20 +8,20 @@
 #include "TimeFunction.h"
 #include "../BaseGeometry/Vector3.h"
 
-class TimeVector3 {
+class TimeVector3 : public Vector3{
+
+    using Vector3::Vector3;
 
 protected:
 
     TimeFunction fx, fy, fz;
+    bool _is_function = false;
 
 public:
 
     TimeVector3(TimeFunction x, TimeFunction y, TimeFunction z);
-    TimeVector3(double x, double y, double z);
-    explicit TimeVector3(const Vector3& v);
-    TimeVector3();
 
-    [[nodiscard]] Vector3 time(double time) const;
+    [[nodiscard]] Vector3 time(float time) const;
 
 };
 

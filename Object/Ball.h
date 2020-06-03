@@ -12,11 +12,11 @@ class Ball : public Object{
 
 private:
 
-    double radius;
+    float radius;
 
 public:
 
-    Ball(const ReferenceFrame &referenceFrame, Aspect aspect, double radius);
+    Ball(const ReferenceFrame &referenceFrame, Aspect aspect, float radius);
 
 };
 

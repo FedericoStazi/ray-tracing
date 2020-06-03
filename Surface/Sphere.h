@@ -12,17 +12,17 @@ class Sphere : public Surface{
 
 private:
 
-    double radius;
+    float radius;
 
 public:
 
-    Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect, double radius);
+    Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius);
 
-    UnitVector3 get_normal(const Vector3 & v, double time) override;
+    UnitVector3 get_normal(const Vector3 & v, float time) override;
 
-    std::vector<std::pair<double, Surface *>> intersections(const Line& ray, double time) override;
+    std::vector<std::pair<float, Surface *>> intersections(const Line& ray, float time) override;
 
-    double furthest_distance(double time) override;
+    float furthest_distance(float time) override;
 
 };
 

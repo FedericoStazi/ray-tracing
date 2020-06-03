@@ -21,7 +21,7 @@ public:
     };
 
     explicit UnitVector3(const Vector3& v);
-    UnitVector3(double x, double y, double z);
+    UnitVector3(float x, float y, float z);
     UnitVector3();
 
     Vector3 reflect(const Vector3& v);

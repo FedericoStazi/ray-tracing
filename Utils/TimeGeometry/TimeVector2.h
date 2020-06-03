@@ -18,11 +18,11 @@ public:
     explicit TimeVector2(const Vector3& v);
     explicit TimeVector2(TimeVector3 v);
     TimeVector2(TimeFunction x, TimeFunction y);
-    TimeVector2(double x, double y);
+    TimeVector2(float x, float y);
     explicit TimeVector2(const Vector2& v);
     TimeVector2();
 
-    [[nodiscard]] Vector2 time(double time) const;
+    [[nodiscard]] Vector2 time(float time) const;
 
 };
 

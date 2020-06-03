@@ -7,44 +7,63 @@
 
 #include <string>
 #include "../../Aspect/Color.h"
+#include <Eigen/Core>
+#include <Eigen/Geometry>
 
+class Vector3 : public Eigen::Vector3f {
+
+    using Eigen::Vector3f::Vector3f;
+
+public:
+    [[nodiscard]] bool equals(const Vector3& v) const;
+    [[nodiscard]] float distance(const Vector3& v) const;
+    [[nodiscard]] Vector3 rotate(float x, float y, float z) const;
+    [[nodiscard]] virtual std::string to_string() const;
+
+};
+
+/*
 class Vector3 {
 
 private:
 
-    double _x, _y, _z;
+    float _x, _y, _z;
 
 public:
 
-    Vector3(double x, double y, double z);
+    Vector3(float x, float y, float z);
     Vector3();
 
-    [[nodiscard]] double x() const;
-    [[nodiscard]] double y() const;
-    [[nodiscard]] double z() const;
+    [[nodiscard]] float x() const;
+    [[nodiscard]] float y() const;
+    [[nodiscard]] float z() const;
 
-    [[nodiscard]] Vector3 set_x(double x) const;
-    [[nodiscard]] Vector3 set_y(double y) const;
-    [[nodiscard]] Vector3 set_z(double z) const;
+    [[nodiscard]] Vector3 set_x(float x) const;
+    [[nodiscard]] Vector3 set_y(float y) const;
+    [[nodiscard]] Vector3 set_z(float z) const;
 
-    [[nodiscard]] double magnitude() const;
+    [[nodiscard]] float magnitude() const;
     [[nodiscard]] Vector3 normalized() const ;
 
     [[nodiscard]] bool equals(const Vector3& v) const;
 
-    [[nodiscard]] const Vector3 scale(double k) const;
+    [[nodiscard]] const Vector3 scale(float k) const;
     [[nodiscard]] Vector3 add(const Vector3& v) const;
     [[nodiscard]] Vector3 subtract(const Vector3& v) const;
 
-    [[nodiscard]] double dot_product(const Vector3& v) const;
+    [[nodiscard]] float dot_product(const Vector3& v) const;
     [[nodiscard]] Vector3 cross_product(const Vector3& v) const;
 
-    [[nodiscard]] double distance(const Vector3& v) const;
+    [[nodiscard]] float distance(const Vector3& v) const;
 
-    [[nodiscard]] Vector3 rotate(double x, double y, double z) const;
+    [[nodiscard]] Vector3 rotate(float x, float y, float z) const;
 
     [[nodiscard]] virtual std::string to_string() const;
 
 };
 
+ */
+
 #endif //CPP_GRAPHICS_VECTOR3_H
+
+

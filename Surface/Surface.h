@@ -27,11 +27,11 @@ public:
 
     [[nodiscard]] const Aspect &get_aspect() const;
 
-    virtual UnitVector3 get_normal(const Vector3 & v, double time);
+    virtual UnitVector3 get_normal(const Vector3 & v, float time);
 
-    virtual std::vector<std::pair<double, Surface *>> intersections(const Line & ray, double time);
+    virtual std::vector<std::pair<float, Surface *>> intersections(const Line & ray, float time);
 
-    virtual double furthest_distance(double time);
+    virtual float furthest_distance(float time);
 
 };
 

@@ -13,12 +13,12 @@ void Scene::add(Light *light) {
     lights.insert(light);
 }
 
-Scene::IntersectionData Scene::ray_intersection(const Line &ray, double time) const {
+Scene::IntersectionData Scene::ray_intersection(const Line &ray, float time) const {
 
     IntersectionData closest_intersection;
 
     for (Object* object : objects)
-        for (std::pair<double, Surface * > intersection : object->intersections(ray, time))
+        for (std::pair<float, Surface * > intersection : object->intersections(ray, time))
             if (intersection.first < closest_intersection.distance and intersection.first > 0)
                 closest_intersection = IntersectionData(intersection.first, intersection.second, object);
 
@@ -26,7 +26,7 @@ Scene::IntersectionData Scene::ray_intersection(const Line &ray, double time) co
 
 }
 
-Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line& ray, int reflections, double time) const {
+Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line& ray, int reflections, float time) const {
 
     Color result = ambient_intensity.scale(intersection_data.surface->get_aspect().get_k_diffuse());
 
@@ -36,34 +36,34 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line
 
         Line light_line = Line::between_points(intersection_point, light->get_reference_frame().get_location(time));
 
-        double light_distance = ray_intersection(light_line, time).distance;
+        float light_distance = ray_intersection(light_line, time).distance;
 
         UnitVector3 surface_normal =
                 intersection_data.object->get_reference_frame().unit_from_ref_frame(
                         intersection_data.surface->get_normal(
                             intersection_data.object->get_reference_frame().to_ref_frame(intersection_point, time), time), time);
 
-        UnitVector3 viewer_vector = UnitVector3(ray.get_direction(time).scale(-1));
+        UnitVector3 viewer_vector = static_cast<UnitVector3>(ray.get_direction(time) * (-1));
 
         if (intersection_point.distance(light->get_reference_frame().get_location(time)) < light_distance) {
 
             // diffuse shading
             result = result.add(light->get_intensity().scale(
                     intersection_data.surface->get_aspect().get_k_diffuse().scale(
-                         std::abs(light_line.get_direction(time).dot_product(surface_normal)))));
+                         std::abs(light_line.get_direction(time).dot(surface_normal)))));
 
             // specular reflection
             result = result.add(light->get_intensity().scale(
                     intersection_data.surface->get_aspect().get_k_specular().scale(
                             pow(
-                                    std::max(0.0, surface_normal.reflect(light_line.get_direction(time)).dot_product(viewer_vector)),
+                                    std::max(0.0f, surface_normal.reflect(light_line.get_direction(time)).dot(viewer_vector)),
                                     intersection_data.surface->get_aspect().get_roughness()))));
 
             // mirror reflection
             if (!intersection_data.surface->get_aspect().get_k_mirror().is_zero())
                 result = result.add(intersection_data.surface->get_aspect().get_k_mirror().scale(
                         cast_ray(
-                                Line(intersection_point, UnitVector3(surface_normal.reflect(viewer_vector))),
+                                Line(intersection_point, static_cast<UnitVector3>(surface_normal.reflect(viewer_vector))),
                                 reflections - 1,
                                 time
                         )));
@@ -76,7 +76,7 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line
 
 }
 
-Color Scene::cast_ray(const Line& ray, int reflections, double time) const {
+Color Scene::cast_ray(const Line& ray, int reflections, float time) const {
     IntersectionData closest_intersection = ray_intersection(ray, time);
     return (closest_intersection.surface == nullptr || reflections == 0) ? Color() : surface_color(closest_intersection, ray, reflections, time);
 }

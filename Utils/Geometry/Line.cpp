@@ -13,32 +13,32 @@ Line::Line(const Vector3& location, const UnitVector3& direction) : location(loc
 
 Line::Line() : Line(TimeVector3(), TimeUnitVector3()){}
 
-Vector3 Line::get_location(double time) const {
+Vector3 Line::get_location(float time) const {
     return location.time(time);
 }
 
-UnitVector3 Line::get_direction(double time) const {
+UnitVector3 Line::get_direction(float time) const {
     return direction.time(time);
 }
 
-double Line::distance(const Vector3& vector, double time) const {
-    Vector3 translated_vector = vector.subtract(get_location(time));
-    return get_direction(time).cross_product(translated_vector).magnitude();
+float Line::distance(const Vector3& vector, float time) const {
+    Vector3 translated_vector = vector - (get_location(time));
+    return get_direction(time).cross(translated_vector).norm();
 }
 
-double Line::distance(const TimeVector3& vector, double time) const {
+float Line::distance(const TimeVector3& vector, float time) const {
     return distance(vector.time(time), time);
 }
 
-Vector3 Line::evaluate(double k, double time) const {
-    return get_location(time).add(get_direction(time).scale(k));
+Vector3 Line::evaluate(float k, float time) const {
+    return get_location(time) + (get_direction(time) * k);
 }
 
-std::string Line::to_string(double time) const {
+std::string Line::to_string(float time) const {
     return "("+get_location(time).to_string()+","+get_direction(time).to_string()+")";
 }
 
 Line Line::between_points(const Vector3& a, const Vector3& b) {
-    return Line(TimeVector3(a),TimeUnitVector3(b.subtract(a).normalized()));
+    return Line(static_cast<TimeVector3>(a),static_cast<TimeUnitVector3>(static_cast<Vector3>((b - a).normalized())));
 }
 
