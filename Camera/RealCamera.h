@@ -50,7 +50,7 @@ public:
     float get_focal_plane_size() const;
 
     Picture picture(int height, int width, float time) override;
-    Color cast_ray(Vector2 position, float time);
+    Color cast_ray(Vector2 position, float time) const override;
 
 };
 

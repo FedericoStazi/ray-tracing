@@ -64,7 +64,7 @@ Picture RealCamera::picture(int height, int width, float time) {
 
 //TODO make separate class
 //check if randomness on pixel position is needed
-Color RealCamera::cast_ray(Vector2 position, float time) {
+Color RealCamera::cast_ray(Vector2 position, float time) const {
 
     std::random_device rd;
     std::minstd_rand gen(rd());

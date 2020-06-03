@@ -26,6 +26,6 @@ Scene Camera::get_scene() const {
     return scene;
 }
 
-UnitVector3 Camera::get_direction(float time) {
+UnitVector3 Camera::get_direction(float time) const {
     return static_cast<UnitVector3>(get_reference_frame().get_orientation().get_z_base(time) * (-1));
 }

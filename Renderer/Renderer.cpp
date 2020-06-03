@@ -4,6 +4,8 @@
 
 #include <queue>
 #include <iostream>
+#include <mutex>
+#include <thread>
 #include "Renderer.h"
 #include "../Utils/BaseGeometry/Vector2.h"
 
@@ -103,13 +105,60 @@ Picture Renderer::picture(int height, int width, float time) const {
     };
 
     int max_requests = 10 * height * width;
-
     std::priority_queue<PixelRenderer> queue;
+    int threads_number = 4;
+
     for (int i=0; i<height; i++)
         for (int j=0; j<height; j++)
             queue.push(PixelRenderer(i, j));
 
-    while (max_requests--) {
+    std::mutex max_requests_mutex;
+    std::mutex queue_mutex;
+
+    [[maybe_unused]] auto complete_requests =[&](){
+
+        int local_max_requests = 1;
+
+        while (local_max_requests > 0) {
+
+            queue_mutex.lock();
+            PixelRenderer pixel = queue.top();
+            queue.pop();
+            queue_mutex.unlock();
+
+            std::vector<Vector2> requests = pixel.get_request();
+            std::vector<Color> colors;
+
+            colors.reserve(requests.size());
+            for (const Vector2& point:requests) {
+                Vector2 screen_point = static_cast<Vector2> (
+                    Vector2((float)pixel.x/width, (float)pixel.y/height)
+                    + (Vector2(point.x() /width, point.y()/height)));
+                colors.push_back(camera.cast_ray(screen_point, 0));
+            }
+
+            pixel.complete_request(colors);
+
+            queue_mutex.lock();
+            queue.push(pixel);
+            queue_mutex.unlock();
+
+            max_requests_mutex.lock();
+            local_max_requests = --max_requests;
+            max_requests_mutex.unlock();
+
+            if (local_max_requests%10000 == 0)
+                std::cerr << max_requests/10000 << "\r";
+
+        }
+    };
+
+    std::vector<std::thread> threads;
+    for (int t=0; t<threads_number; t++)
+        threads.emplace_back(complete_requests);
+    std::for_each(threads.begin(), threads.end(), [](std::thread& t){t.join();});
+
+    /*while (max_requests--) {
 
         if (max_requests%1000 == 0)
             std::cerr << max_requests << "\r";
@@ -129,7 +178,7 @@ Picture Renderer::picture(int height, int width, float time) const {
 
         pixel.complete_request(colors);
         queue.push(pixel);
-    }
+    }*/
 
     Picture result(height, width);
 

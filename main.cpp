@@ -52,7 +52,7 @@ int main() {
 
     Aspect aspect1(RGB(20, 100, 200).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.05, 0.05, 0.05), 5);
     Aspect aspect2(RGB(150, 150, 150).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
-    Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
+    Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0.5, 0.5, 0.5), 2);
     Aspect aspect4(RGB(140, 230, 64).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
 
     // Scene elements
@@ -60,9 +60,9 @@ int main() {
     Scene scene;
 
     scene.add(new Ball (ReferenceFrame(TimeVector3(
-            TimeFunction([=](float t){ return 100*t;}),
-            TimeFunction(-10),
-            TimeFunction(0)
+            TimeFunction(new std::function<float(float)>([](float t){ return 100*t;})),
+            TimeFunction(-10.0f),
+            TimeFunction(0.0f)
             ), Basis()), aspect4, 10));
 
     scene.add(new Ball (ReferenceFrame(TimeVector3(0, 10, -200), Basis()), aspect3, 30));
@@ -73,9 +73,9 @@ int main() {
             TimeUnitVector3(0, -1, 0)
             )), new Square(ReferenceFrame(TimeVector3(0, 0, 0), Basis()), aspect2, 400)));
 
-    scene.add(new Cube(ReferenceFrame(TimeVector3(-50, 20, -150), Basis()), aspect1, 40));
+    scene.add(new Cube(ReferenceFrame(TimeVector3(-30, 20, -100), Basis()), aspect1, 40));
 
-    scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 100, 0), Basis()), Color(0.5, 0.5, 0.5)));
+    scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 50, 30), Basis()), Color(0.5, 0.5, 0.5)));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, -100), Basis()), Color(0.5, 0.5, 0.5)));
 
@@ -85,7 +85,7 @@ int main() {
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
-    print_picture(c1.picture(256, 256, 0), "picture1.ppm");
+    print_picture(c1.picture(500, 500, 0), "picture1.ppm");
     //system("xdg-open picture1.ppm");
 /*
     // High aperture (f1) picture

@@ -13,19 +13,13 @@ private:
 
     typedef std::function<float(float)> _function_type;
 
-    bool _is_function{};
-
+    bool _is_function;
     float _value = 0;
-    _function_type _function;
-
-    // caching
-    float EPS = 1e-6;
-    mutable float _last = 0;
-    mutable float _cached = 0;
+    _function_type* _function;
 
 public:
 
-    explicit TimeFunction(const _function_type& value);
+    explicit TimeFunction(_function_type* value);
     explicit TimeFunction(float value);
     TimeFunction() = default;
 

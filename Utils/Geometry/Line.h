@@ -10,6 +10,7 @@
 #include "../BaseGeometry/UnitVector3.h"
 #include "../TimeGeometry/TimeUnitVector3.h"
 
+class TimeVector3;
 class Line {
 
 private:
@@ -34,7 +35,6 @@ public:
     static Line between_points(const Vector3& a, const Vector3& b);
 
     [[nodiscard]] std::string to_string(float time) const;
-
 
 };
 

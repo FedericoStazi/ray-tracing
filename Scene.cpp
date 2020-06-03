@@ -30,7 +30,7 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line
 
     Color result = ambient_intensity.scale(intersection_data.surface->get_aspect().get_k_diffuse());
 
-    Vector3 intersection_point = ray.evaluate(intersection_data.distance - Constants::eps, time);
+    Vector3 intersection_point = ray.evaluate(intersection_data.distance - 10.0f*Constants::eps, time);
 
     for (Light * light : lights) {
 

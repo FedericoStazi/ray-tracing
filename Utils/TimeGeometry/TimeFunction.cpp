@@ -5,25 +5,16 @@
 #include "TimeFunction.h"
 
 #include <cmath>
+#include <assert.h>
 
-TimeFunction::TimeFunction(const TimeFunction::_function_type& function) : _cached(function(0)), _function(function), _is_function(true) {}
+TimeFunction::TimeFunction(TimeFunction::_function_type* function_ptr) : _function(function_ptr), _is_function(true) {}
 
 TimeFunction::TimeFunction(float value) : _value(value), _is_function(false) {}
 
 float TimeFunction::get(float time) const {
 
-    if (!_is_function) {
+    if (!_is_function)
         return _value;
-    } else {
-        return _function(time);
-
-        /*
-        if (std::abs(time - _last) > EPS) {
-            _last = time;
-            _cached = _function(time);
-        }
-
-        return _cached;
-         */
-    }
+    else
+        return (*_function)(time);
 }
