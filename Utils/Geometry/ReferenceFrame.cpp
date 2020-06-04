@@ -59,11 +59,11 @@ UnitVector3 ReferenceFrame::unit_from_ref_frame(const TimeUnitVector3 &v, float 
 }
 
 Vector2 ReferenceFrame::to_plane(const Vector3 &v, float time) const {
-    return Vector2(to_ref_frame(v, time));
+    return Vector2(to_ref_frame(v, time).zero_z());
 }
 
 Vector2 ReferenceFrame::to_plane(const TimeVector3& v, float time) const {
-    return Vector2(to_ref_frame(v, time));
+    return Vector2(to_ref_frame(v, time).zero_z());
 }
 
 Vector3 ReferenceFrame::from_plane(const Vector2 &v, float time) const {

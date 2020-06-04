@@ -20,6 +20,8 @@
 #include "Aspect/RGB.h"
 #include "Surface/Square.h"
 #include "Camera/RealCamera.h"
+#include "Surface/OpenCylinder.h"
+#include "Object/Cylinder.h"
 
 void print_picture(const Picture& picture, const std::string& file = (std::string) "pic.ppm", bool open = false) {
 
@@ -75,6 +77,18 @@ int main() {
 
     scene.add(new Cube(ReferenceFrame(TimeVector3(-60, 20, -80), Basis()), aspect1, 40));
 
+    scene.add(new Cylinder(ReferenceFrame(TimeVector3(20,40,-250), Basis(
+        TimeUnitVector3(0, 0, 1),
+        TimeUnitVector3(1, 0, 0),
+        TimeUnitVector3(0, 1, 0)
+    )), aspect4, 50, 50));
+
+    scene.add(new Cylinder(ReferenceFrame(TimeVector3(25,0,-40), Basis(
+        TimeUnitVector3(0, 0, 1),
+        TimeUnitVector3(sqrt(0.5f), -sqrt(0.5f), 0),
+        TimeUnitVector3(sqrt(0.5f), sqrt(0.5f), 0)
+    )), aspect3, 10, 20));
+
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 50, 30), Basis()), Color(0.5, 0.5, 0.5)));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, -100), Basis()), Color(0.5, 0.5, 0.5)));
@@ -85,8 +99,9 @@ int main() {
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
-    print_picture(c1.picture(500, 500, 0), "picture1.ppm");
-    //system("xdg-open picture1.ppm");
+    std::string name = "pic"+std::to_string(clock());
+    print_picture(c1.picture(500, 500, 0), name);
+    //system(("xdg-open "+name).c_str());
 /*
     // High aperture (f1) picture
     RealCamera c2(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);

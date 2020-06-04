@@ -29,6 +29,10 @@ float Vector3::distance(const Vector3& other) const {
     return (*this - other).norm();
 }
 
+Vector3 Vector3::zero_z() const {
+    return Vector3(x(), y(), 0);
+}
+
 /*
 Vector3::Vector3(float x, float y, float z) : _x(x), _y(y), _z(z) {}
 

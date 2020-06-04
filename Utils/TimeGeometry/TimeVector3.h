@@ -20,6 +20,8 @@ protected:
 
 public:
 
+    TimeVector3() : Vector3() {}
+
     TimeVector3(TimeFunction x, TimeFunction y, TimeFunction z);
 
     [[nodiscard]] Vector3 time(float time) const;

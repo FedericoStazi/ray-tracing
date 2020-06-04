@@ -147,8 +147,8 @@ Picture Renderer::picture(int height, int width, float time) const {
             local_max_requests = --max_requests;
             max_requests_mutex.unlock();
 
-            if (local_max_requests%20000 == 0)
-                std::cerr << max_requests/20000 << "\r";
+            if (local_max_requests%1000 == 0)
+                std::cerr << max_requests/1000 << "    \r";
 
         }
     };

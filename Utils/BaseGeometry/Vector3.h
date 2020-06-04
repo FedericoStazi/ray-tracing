@@ -16,12 +16,13 @@ class Vector3 : public Eigen::Vector3f {
 
 public:
 
-    Vector3() : Eigen::Vector3f() {}
+    Vector3() : Eigen::Vector3f(0, 0, 0) {}
 
     [[nodiscard]] bool equals(const Vector3& v) const;
     [[nodiscard]] float distance(const Vector3& v) const;
     [[nodiscard]] Vector3 rotate(float x, float y, float z) const;
     [[nodiscard]] virtual std::string to_string() const;
+    [[nodiscard]] Vector3 zero_z() const;
 
 };
 
