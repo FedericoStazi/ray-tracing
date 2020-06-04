@@ -104,25 +104,7 @@ int main() {
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
     std::string name = "pictures/pic"+std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
-    print_picture(c1.picture(100, 100, 0), name);
-    //system(("xdg-open "+name).c_str());
-/*
-    // High aperture (f1) picture
-    RealCamera c2(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c2.set_aperture_size(5);
-    c2.set_shutter_speed(0.01);
-    print_picture(c2.picture(500, 500, 0), "picture2.ppm");
+    print_picture(c1.picture(50, 50, 0), name);
+    system(("xdg-open "+name).c_str());
 
-    // Low shutter speed picture
-    RealCamera c3(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c3.set_aperture_size(0.01);
-    c3.set_shutter_speed(0.1);
-    print_picture(c3.picture(500, 500, 0), "picture3.ppm");
-
-    // High aperture and low shutter speed picture
-    RealCamera c4(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
-    c4.set_aperture_size(5);
-    c4.set_shutter_speed(0.1);
-    print_picture(c4.picture(500, 500, 0), "picture4.ppm");
-*/
 }

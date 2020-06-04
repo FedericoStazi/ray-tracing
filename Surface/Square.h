@@ -10,14 +10,20 @@
 
 class Square : public Surface {
 
+public:
+
+    Square(const ReferenceFrame &referenceFrame, const Aspect &aspect, float side)
+        : Surface(referenceFrame,aspect),
+          side(side) {
+            add(Vector2(side/2, side/2));
+            add(Vector2(-side/2, side/2));
+            add(Vector2(-side/2, -side/2));
+            add(Vector2(side/2, -side/2));
+    }
+
 private:
 
     float side;
-
-public:
-
-    Square(const ReferenceFrame &referenceFrame, const Aspect &aspect, float side);
-
 };
 
 

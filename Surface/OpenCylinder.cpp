@@ -6,9 +6,6 @@
 #include "OpenCylinder.h"
 #include "../Utils/BaseGeometry/Values.h"
 
-OpenCylinder::OpenCylinder(const ReferenceFrame &referenceFrame, const Aspect &aspect,
-                           float radius, float height) : Surface(referenceFrame, aspect), radius(radius), height(height) {}
-
 UnitVector3 OpenCylinder::get_normal(const Vector3 &v, float time) {
     Vector3 w = v - get_reference_frame().get_location(time);
     return static_cast<UnitVector3>(Vector2(
@@ -17,11 +14,11 @@ UnitVector3 OpenCylinder::get_normal(const Vector3 &v, float time) {
         ).normalized());
 }
 
-// line is in object's coordinates
 std::vector<std::pair<float, Surface *>> OpenCylinder::intersections(const Line &ray, float time) {
 
     std::vector<std::pair<float, Surface *>> result;
 
+    // ray translated to OpenCylinder's reference frame
     Line ray_trans = get_reference_frame().to_ref_frame(ray, time);
     Vector3 line2d = get_reference_frame().to_plane(ray_trans.get_direction(time), time);
     float proj_norm = line2d.norm();
@@ -45,6 +42,4 @@ std::vector<std::pair<float, Surface *>> OpenCylinder::intersections(const Line 
 
 }
 
-float OpenCylinder::furthest_distance(float time) {
-    return std::sqrt(height * height / 4 + radius * radius);
-}
+

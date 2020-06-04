@@ -10,17 +10,21 @@
 
 class Circle : public Surface {
 
-private:
-
-    float radius;
-
 public:
-
-    Circle(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius);
 
     std::vector<std::pair<float, Surface *>> intersections(const Line& ray, float time) override;
 
-    float furthest_distance(float time) override;
+    float furthest_distance(float time) const override {
+        return radius;
+    }
+
+    Circle(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius)
+        : Surface(referenceFrame, aspect),
+          radius(radius) {}
+
+private:
+
+    float radius;
 
 };
 

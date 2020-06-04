@@ -12,7 +12,12 @@ class Polygon : public Surface {
 
 public:
 
-    Polygon(const ReferenceFrame &referenceFrame, const Aspect &aspect, const std::vector<Vector2>& points);
+    //Polygon from a vectors of 2d points in the plane's coordinates
+    Polygon(const ReferenceFrame &referenceFrame, const Aspect &aspect, const std::vector<Vector2>& points)
+        : Surface(referenceFrame, aspect) {
+            for (const Vector2& point : points)
+                add(point);
+        }
 
 };
 

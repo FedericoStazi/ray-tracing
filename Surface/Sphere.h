@@ -10,20 +10,25 @@
 
 class Sphere : public Surface{
 
-private:
-
-    float radius;
-
 public:
 
-    Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius);
-
-    UnitVector3 get_normal(const Vector3 & v, float time) override;
+    UnitVector3 get_normal(const Vector3 & v, float time) const override{
+        return static_cast<UnitVector3>((v - (get_reference_frame().get_location(time))).normalized());
+    }
 
     std::vector<std::pair<float, Surface *>> intersections(const Line& ray, float time) override;
 
-    float furthest_distance(float time) override;
+    float furthest_distance(float time) const override {
+        return radius;
+    }
 
+    Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius)
+        : Surface(referenceFrame, aspect),
+          radius(radius) {}
+
+private:
+
+    float radius;
 };
 
 

@@ -7,16 +7,19 @@
 
 
 #include "Object.h"
+#include "../Surface/Sphere.h"
 
 class Ball : public Object{
+
+public:
+
+    Ball(const ReferenceFrame &referenceFrame, Aspect aspect, float radius) : Object(referenceFrame), radius(radius) {
+        add(new Sphere(ReferenceFrame(), aspect, radius));
+    }
 
 private:
 
     float radius;
-
-public:
-
-    Ball(const ReferenceFrame &referenceFrame, Aspect aspect, float radius);
 
 };
 

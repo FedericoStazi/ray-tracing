@@ -4,14 +4,7 @@
 
 #include "Object.h"
 
-Object::Object(const ReferenceFrame &referenceFrame) : Entity(referenceFrame) {}
-
-void Object::add(Surface *surface) {
-    surfaces.insert(surface);
-    furthest_distance = std::max(furthest_distance, surface->furthest_distance(0));
-}
-
-std::vector<std::pair<float, Surface *>> Object::intersections(const Line& ray, float time) {
+std::vector<std::pair<float, Surface *>> Object::intersections(const Line& ray, float time) const {
 
     std::vector<std::pair<float, Surface *>> result;
 

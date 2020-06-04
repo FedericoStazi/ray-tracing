@@ -14,7 +14,7 @@ class RGB {
 
 public:
 
-    RGB to_rgb(Color c) {
+    static RGB to_rgb(Color c) {
         return RGB(
             _to_rgb(c.get_r()),
             _to_rgb(c.get_g()),

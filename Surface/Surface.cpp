@@ -6,20 +6,6 @@
 
 #include <utility>
 
-Surface::Surface(const ReferenceFrame &referenceFrame, const Aspect &aspect) : Entity(referenceFrame), aspect(aspect) {}
-
-const Aspect &Surface::get_aspect() const {
-    return aspect;
-}
-
-void Surface::add(const Vector2& point) {
-    points.push_back(point);
-}
-
-UnitVector3 Surface::get_normal(const Vector3 & v, float time) {
-    return get_reference_frame().get_orientation().get_z_base(time);
-}
-
 std::vector<std::pair<float, Surface *>> Surface::intersections(const Line & ray, float time) {
 
     Vector2 uv = get_reference_frame().point_intersection(ray, time);
@@ -39,14 +25,4 @@ std::vector<std::pair<float, Surface *>> Surface::intersections(const Line & ray
         result.emplace_back(get_reference_frame().k_intersection(ray, time),this);
 
     return result;
-}
-
-float Surface::furthest_distance(float time) {
-
-    float result = 0;
-    for (const Vector2& point : points)
-        result = std::max(result, get_reference_frame().from_plane(point, time).distance(Vector3(0, 0, 0)));
-
-    return result;
-
 }

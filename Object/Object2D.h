@@ -8,11 +8,14 @@
 
 #include "Object.h"
 
+///Generic object containing a single surface
 class Object2D : public Object {
 
 public:
 
-    Object2D(const ReferenceFrame &referenceFrame, Surface * surface);
+    Object2D(const ReferenceFrame &referenceFrame, Surface * surface) : Object(referenceFrame) {
+        add(surface);
+    }
 
 };
 

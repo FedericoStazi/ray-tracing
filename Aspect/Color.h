@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "../Utils/BaseGeometry/Vector3.h"
+#include "../Utils/BaseGeometry/Values.h"
 
 ///Class representing a color as an amount of light in the range [0,inf) in the 3 color channels
 class Color {

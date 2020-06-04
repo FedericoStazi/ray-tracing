@@ -10,20 +10,24 @@
 
 class OpenCylinder : public Surface{
 
-private:
-
-    float radius, height;
-
 public:
-
-    OpenCylinder(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius, float height);
 
     UnitVector3 get_normal(const Vector3 & v, float time);
 
-    std::vector<std::pair<float, Surface *>> intersections(const Line & ray, float time);
+    std::vector<std::pair<float, Surface *>> intersections(const Line & ray, float time) override;
 
-    float furthest_distance(float time);
+    float furthest_distance(float time) const override {
+        return std::sqrt(height * height / 4 + radius * radius);
+    }
 
+    OpenCylinder(const ReferenceFrame &referenceFrame, const Aspect &aspect, float radius, float height)
+        : Surface(referenceFrame, aspect),
+          radius(radius),
+          height(height) {}
+
+private:
+
+    float radius, height;
 };
 
 

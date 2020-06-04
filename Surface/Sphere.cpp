@@ -6,13 +6,6 @@
 #include "Sphere.h"
 #include "../Utils/BaseGeometry/Values.h"
 
-Sphere::Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect,
-               float radius) : Surface(referenceFrame, aspect), radius(radius) {}
-
-UnitVector3 Sphere::get_normal(const Vector3 & v, float time) {
-    return static_cast<UnitVector3>((v - (get_reference_frame().get_location(time))).normalized());
-}
-
 std::vector<std::pair<float, Surface *>> Sphere::intersections(const Line& ray, float time) {
 
     std::vector<std::pair<float, Surface *>> result;
@@ -29,16 +22,4 @@ std::vector<std::pair<float, Surface *>> Sphere::intersections(const Line& ray, 
     }
 
     return result;
-}
-
-float Sphere::furthest_distance(float time) {
-
-    if (get_reference_frame().get_location(time).norm() > Values::eps) {
-        //not tested I think...
-        Line line = Line::between_points(Vector3(0, 0, 0), get_reference_frame().get_location(time));
-        std::vector<std::pair<float, Surface *>> line_intersections = intersections(line, time);
-        return std::max(line_intersections[0].first, line_intersections[1].first);
-    } else {
-        return radius;
-    }
 }
