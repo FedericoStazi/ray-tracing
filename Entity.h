@@ -20,7 +20,7 @@ public:
 protected:
 
     explicit Entity(ReferenceFrame referenceFrame) : reference_frame(std::move(referenceFrame)) {}
-    Entity() {};
+    Entity() = default;
 
 private:
 

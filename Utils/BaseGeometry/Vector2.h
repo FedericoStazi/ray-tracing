@@ -28,7 +28,7 @@ public:
 
     Vector2(float x, float y) : Vector3(x, y, 0) {}
 
-    Vector2() : Vector3() {}
+    Vector2() : Vector3() {};
 
 };
 

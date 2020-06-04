@@ -8,15 +8,20 @@
 #include "../Picture.h"
 #include "../Camera/Camera.h"
 
-// TODO make virtual and use design strategy
 class Camera;
+
+///This class manages rendering, meaning that it chooses how to cast rays into the scene in a performing way
 class Renderer {
 
 public:
-    explicit Renderer(Camera& camera) : camera(camera) {};
+
+    ///Render a picture given height and width
     [[nodiscard]] Picture picture(int height, int width, float time) const;
 
+    explicit Renderer(Camera& camera) : camera(camera) {};
+
 private:
+
     Camera& camera;
 
 };

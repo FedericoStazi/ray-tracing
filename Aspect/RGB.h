@@ -9,7 +9,32 @@
 #include <string>
 #include "Color.h"
 
+///Class representing a color in the range [0,255] in the 3 color channels
 class RGB {
+
+public:
+
+    RGB to_rgb(Color c) {
+        return RGB(
+            _to_rgb(c.get_r()),
+            _to_rgb(c.get_g()),
+            _to_rgb(c.get_b())
+        );
+    }
+
+    Color from_rgb() {
+        return Color(
+            _from_rgb(_r),
+            _from_rgb(_g),
+            _from_rgb(_b)
+        );
+    }
+
+    RGB(int r, int g, int b) : _r(r), _g(g), _b(b) {}
+
+    std::string to_string() {
+        return std::to_string(_r)+" "+std::to_string(_g)+" "+std::to_string(_b)+" ";
+    }
 
 private:
 
@@ -21,23 +46,13 @@ private:
 
     int _r, _g, _b;
 
-    static constexpr float a = 2;
-    static constexpr float b = 1.3;
+    static constexpr float ka = 2;
+    static constexpr float kb = 1.3;
 
     static constexpr float gamma = 2.2;
 
     static int _to_rgb(float i);
     static float _from_rgb(int c);
-
-public:
-
-    RGB(int r, int g, int b);
-
-    std::string to_string();
-    std::string to_hex();
-
-    static RGB to_rgb(Color c);
-    Color from_rgb();
 
 };
 

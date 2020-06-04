@@ -25,7 +25,7 @@ public:
 
     explicit TimeFunction(float value) : _value(value), _is_function(false) {}
 
-    TimeFunction() {}
+    TimeFunction() = default;
 
 private:
 

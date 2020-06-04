@@ -11,6 +11,8 @@
 
 Picture Renderer::picture(int height, int width, float time) const {
 
+    /// Request of a ray for a specific area of the picture
+    /// Its priority depends on the difference from its neighbours and the size
     class RayRequest {
     public:
         Vector2 position; // bottom left corner, in [0,1) in the pixel
@@ -28,6 +30,7 @@ Picture Renderer::picture(int height, int width, float time) const {
         }
     };
 
+    /// Each pixel has this object, which manages all the internal ray requests
     class PixelRenderer {
     public:
 
@@ -115,7 +118,8 @@ Picture Renderer::picture(int height, int width, float time) const {
     std::mutex max_requests_mutex;
     std::mutex queue_mutex;
 
-    [[maybe_unused]] auto complete_requests =[&](){
+    //gets the top request, and completes it
+    auto complete_requests =[&](){
 
         int local_max_requests = 1;
 
@@ -153,32 +157,13 @@ Picture Renderer::picture(int height, int width, float time) const {
         }
     };
 
+    // requests are managed by multiple threads using locks
     std::vector<std::thread> threads;
     for (int t=0; t<threads_number; t++)
         threads.emplace_back(complete_requests);
     std::for_each(threads.begin(), threads.end(), [](std::thread& t){t.join();});
 
-    /*while (max_requests--) {
-
-        if (max_requests%1000 == 0)
-            std::cerr << max_requests << "\r";
-
-        PixelRenderer pixel = queue.top();
-        queue.pop();
-        std::vector<Vector2> requests = pixel.get_request();
-        std::vector<Color> colors;
-
-        colors.reserve(requests.size());
-        for (const Vector2& point:requests) {
-            Vector2 screen_point = static_cast<Vector2> (
-                Vector2((float)pixel.x/width, (float)pixel.y/height)
-                    + (Vector2(point.x() /width, point.y()/height)));
-            colors.push_back(camera.cast_ray(screen_point, 0));
-        }
-
-        pixel.complete_request(colors);
-        queue.push(pixel);
-    }*/
+    // save results in a picture
 
     Picture result(height, width);
 
