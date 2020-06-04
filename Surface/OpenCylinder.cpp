@@ -47,6 +47,5 @@ std::vector<std::pair<float, Surface *>> OpenCylinder::intersections(const Line 
 }
 
 float OpenCylinder::furthest_distance(float time) {
-    return Constants::inf;
-    //return sqrt(height * height / 4 + radius * radius);
+    return std::sqrt(height * height / 4 + radius * radius);
 }

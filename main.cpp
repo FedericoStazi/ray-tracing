@@ -2,6 +2,7 @@
 // Created by federico on 09/04/2020.
 //
 
+#include <cmath>
 #include <iostream>
 #include <cmath>
 #include <fstream>
@@ -56,13 +57,14 @@ int main() {
     Aspect aspect2(RGB(150, 150, 150).from_rgb(), Color(0.5, 0.5, 0.5), Color(0.5, 0.5, 0.5), 5);
     Aspect aspect3(RGB(181, 2, 88).from_rgb(), Color(0.1, 0.1, 0.1), Color(0, 0, 0), 2);
     Aspect aspect4(RGB(140, 230, 64).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
+    Aspect aspect5(RGB(200, 100, 0).from_rgb(), Color(0.5, 0.5, 0.5), Color(0, 0, 0), 10);
 
     // Scene elements
 
     Scene scene;
 
     scene.add(new Ball (ReferenceFrame(TimeVector3(
-            TimeFunction(new std::function<float(float)>([](float t){ return 100*t;})),
+            TimeFunction(new std::function<float(float)>([](float t){ return -100.0f*t;})),
             TimeFunction(-10.0f),
             TimeFunction(0.0f)
             ), Basis()), aspect4, 10));
@@ -83,15 +85,17 @@ int main() {
         TimeUnitVector3(0, 1, 0)
     )), aspect4, 50, 50));
 
-    scene.add(new Cylinder(ReferenceFrame(TimeVector3(25,0,-40), Basis(
+    scene.add(new Cylinder(ReferenceFrame(TimeVector3(35,-5,100), Basis(
         TimeUnitVector3(0, 0, 1),
-        TimeUnitVector3(sqrt(0.5f), -sqrt(0.5f), 0),
-        TimeUnitVector3(sqrt(0.5f), sqrt(0.5f), 0)
-    )), aspect3, 10, 20));
+        TimeUnitVector3(std::sqrt(0.5f), -std::sqrt(0.5f), 0),
+        TimeUnitVector3(std::sqrt(0.5f), std::sqrt(0.5f), 0)
+    )), aspect5, 10, 15));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(0, 50, 30), Basis()), Color(0.5, 0.5, 0.5)));
 
     scene.add(new SimpleLight(ReferenceFrame(TimeVector3(50, 10, -100), Basis()), Color(0.5, 0.5, 0.5)));
+
+    scene.add(new SimpleLight(ReferenceFrame(TimeVector3(70, 0, 300), Basis()), Color(1,1,1)));
 
     // Cameras
 
@@ -99,7 +103,7 @@ int main() {
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
-    std::string name = "pic"+std::to_string(clock());
+    std::string name = "pictures/pic"+std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
     print_picture(c1.picture(500, 500, 0), name);
     //system(("xdg-open "+name).c_str());
 /*

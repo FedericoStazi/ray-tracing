@@ -104,9 +104,9 @@ Picture Renderer::picture(int height, int width, float time) const {
 
     };
 
-    int max_requests = 10 * height * width;
+    int max_requests = 50 * height * width;
     std::priority_queue<PixelRenderer> queue;
-    int threads_number = 4;
+    int threads_number = 8;
 
     for (int i=0; i<height; i++)
         for (int j=0; j<height; j++)
