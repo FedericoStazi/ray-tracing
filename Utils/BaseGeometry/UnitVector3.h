@@ -20,7 +20,7 @@ public:
         }
     };
 
-    /// reflect vector v with respect to this unit vector
+    ///Reflect vector v with respect to this unit vector
     [[nodiscard]] inline Vector3 reflect(const Vector3 &v) const {
         return *this * (2 * (dot(v))) - v;
     }
@@ -32,7 +32,7 @@ public:
 
     UnitVector3(float x, float y, float z) : UnitVector3(Vector3(x, y, z)) {}
 
-    UnitVector3() : UnitVector3(Vector3()) {}
+    UnitVector3() : UnitVector3(Vector3(0, 0, 1)) {}
 
 };
 

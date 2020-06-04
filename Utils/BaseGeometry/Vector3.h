@@ -10,8 +10,8 @@
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 
-/// represents a 3d vector
-class Vector3 : public Eigen::Vector3f {
+///represents a 3d vector
+class [[nodiscard]] Vector3 : public Eigen::Vector3f {
 
     using Eigen::Vector3f::Vector3f;
 
@@ -27,7 +27,7 @@ public:
 
     [[nodiscard]] Vector3 rotate(float x, float y, float z) const;
 
-    /// set z to 0
+    ///Set z to 0
     [[nodiscard]] inline Vector3 zero_z() const {
         return Vector3(x(), y(), 0);
     };

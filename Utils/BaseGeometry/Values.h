@@ -7,7 +7,7 @@
 
 #include <limits>
 
-/// class containing project-wide constant values
+///class containing project-wide constant values
 struct Values {
 public:
     constexpr static float eps = 1e-4;
