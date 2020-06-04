@@ -7,7 +7,7 @@
 
 #include "Camera.h"
 
-// simple camera class used for testing
+///Simple camera class used for testing
 class SimpleCamera : public Camera {
 
 private:

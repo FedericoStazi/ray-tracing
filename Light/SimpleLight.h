@@ -8,16 +8,20 @@
 
 #include "Light.h"
 
+///Simple light class
 class SimpleLight : public Light{
+
+public:
+
+    [[nodiscard]] Color inline get_intensity() const {
+        return intensity;
+    }
+
+    SimpleLight(const ReferenceFrame &referenceFrame, Color intensity) : Light(referenceFrame), intensity(intensity) {}
 
 private:
 
     Color intensity;
-
-public:
-
-    SimpleLight(const ReferenceFrame &referenceFrame, Color intensity);
-    Color get_intensity() const override;
 
 };
 

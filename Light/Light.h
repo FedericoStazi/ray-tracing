@@ -8,12 +8,12 @@
 
 #include "../Entity.h"
 
+///Parent class of all lights
 class Light : public Entity {
-
 
 public:
 
-    explicit Light(const ReferenceFrame &referenceFrame);
+    Light(const ReferenceFrame &referenceFrame) : Entity(referenceFrame) {}
     virtual Color get_intensity() const = 0;
 
 };

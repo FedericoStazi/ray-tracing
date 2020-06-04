@@ -11,26 +11,36 @@
 #include "../Entity.h"
 #include "../Picture.h"
 
+///Parent class of all cameras
 class Camera : public Entity {
-
-private:
-
-    Scene scene;
-
-protected:
-
-    Camera(const ReferenceFrame &referenceFrame, Scene scene);
-    Camera(const Vector3 &position, const Vector3 &point, Scene scene);
 
 public:
 
-    [[nodiscard]] Scene get_scene() const;
+    [[nodiscard]] Scene inline get_scene() const {
+        return scene;
+    }
 
-    UnitVector3 get_direction(float time) const;
+    [[nodiscard]] UnitVector3 inline get_direction(float time) const {
+        return static_cast<UnitVector3>(get_reference_frame().get_orientation().get_z_base(time) * (-1));
+    }
 
     virtual Picture picture(int height, int width, float time) = 0;
 
     virtual Color cast_ray(Vector2 position, float time) const = 0;
+
+protected:
+
+    Camera(const ReferenceFrame &referenceFrame, Scene scene) : Entity(referenceFrame), scene(std::move(scene)) {}
+
+    Camera(const Vector3 &position, const Vector3 &point, Scene scene)
+        : Camera(generate_reference_frame(position, point),
+          std::move(scene)) {}
+
+private:
+
+    ReferenceFrame generate_reference_frame(const Vector3 &position, const Vector3 &point);
+
+    Scene scene;
 
 };
 
