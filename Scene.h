@@ -11,7 +11,7 @@
 #include "Utils/Geometry/Line.h"
 #include "Aspect/Color.h"
 #include "Object/Object.h"
-#include "Utils/BaseGeometry/Constants.h"
+#include "Utils/BaseGeometry/Values.h"
 
 class Scene {
 
@@ -28,7 +28,7 @@ private:
         Surface * surface;
         Object * object;
 
-        IntersectionData() : distance(Constants::inf), surface(nullptr), object(nullptr) {}
+        IntersectionData() : distance(Values::inf), surface(nullptr), object(nullptr) {}
         IntersectionData(float distance, Surface *surface, Object *object) : distance(distance), surface(surface), object(object) {}
     };
 

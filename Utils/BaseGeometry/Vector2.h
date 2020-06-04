@@ -9,6 +9,7 @@
 
 
 #include "Vector3.h"
+#include "Values.h"
 
 class Vector2 : public Vector3{
 
@@ -16,13 +17,18 @@ public:
 
     struct Non2DException: public std::exception {
         [[nodiscard]] const char * what () const noexcept override {
-            return "The vector does not have z = 0";
+            return "The vector does has z = 0";
         }
     };
 
-    explicit Vector2(Vector3 v);
-    Vector2(float x, float y);
-    Vector2();
+    explicit Vector2(Vector3 v) : Vector3(std::move(v)) {
+        if (std::abs(z()) > Values::eps)
+            throw Non2DException();
+    }
+
+    Vector2(float x, float y) : Vector3(x, y, 0) {}
+
+    Vector2() : Vector3() {}
 
 };
 

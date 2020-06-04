@@ -15,7 +15,7 @@ Picture Renderer::picture(int height, int width, float time) const {
     public:
         Vector2 position; // bottom left corner, in [0,1) in the pixel
         int size = 0; // side has length 2^-size
-        float variance = Constants::inf;
+        float variance = Values::inf;
         Color color;
         RayRequest() = default;
         RayRequest(Vector2 position, int size, float variance, Color color) :
@@ -38,7 +38,7 @@ Picture Renderer::picture(int height, int width, float time) const {
         RayRequest active_request;
 
         explicit PixelRenderer(int x, int y) : x(x), y(y) {
-            requests.push(RayRequest(Vector2(0,0), 0, Constants::inf, Color()));
+            requests.push(RayRequest(Vector2(0,0), 0, Values::inf, Color()));
         };
 
         [[nodiscard]] float get_priority() const {
@@ -104,7 +104,7 @@ Picture Renderer::picture(int height, int width, float time) const {
 
     };
 
-    int max_requests = 50 * height * width;
+    int max_requests = 2 * height * width;
     std::priority_queue<PixelRenderer> queue;
     int threads_number = 8;
 

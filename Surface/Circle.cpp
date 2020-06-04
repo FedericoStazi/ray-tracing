@@ -3,7 +3,7 @@
 //
 
 #include "Circle.h"
-#include "../Utils/BaseGeometry/Constants.h"
+#include "../Utils/BaseGeometry/Values.h"
 
 Circle::Circle(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                float radius) : Surface(referenceFrame, aspect), radius(radius) {}

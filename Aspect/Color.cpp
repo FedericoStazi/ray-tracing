@@ -3,7 +3,7 @@
 //
 
 #include "Color.h"
-#include "../Utils/BaseGeometry/Constants.h"
+#include "../Utils/BaseGeometry/Values.h"
 
 
 Color::Color(float r, float g, float b) : _r(r), _g(g), _b(b) {}
@@ -70,7 +70,7 @@ std::string Color::to_string() {
 
 bool Color::is_zero() const {
     return
-        get_r() < Constants::eps &&
-        get_g() < Constants::eps &&
-        get_b() < Constants::eps;
+        get_r() < Values::eps &&
+        get_g() < Values::eps &&
+        get_b() < Values::eps;
 }

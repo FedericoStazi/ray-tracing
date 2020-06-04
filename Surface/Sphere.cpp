@@ -4,7 +4,7 @@
 
 #include <cmath>
 #include "Sphere.h"
-#include "../Utils/BaseGeometry/Constants.h"
+#include "../Utils/BaseGeometry/Values.h"
 
 Sphere::Sphere(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                float radius) : Surface(referenceFrame, aspect), radius(radius) {}
@@ -33,7 +33,7 @@ std::vector<std::pair<float, Surface *>> Sphere::intersections(const Line& ray, 
 
 float Sphere::furthest_distance(float time) {
 
-    if (get_reference_frame().get_location(time).norm() > Constants::eps) {
+    if (get_reference_frame().get_location(time).norm() > Values::eps) {
         //not tested I think...
         Line line = Line::between_points(Vector3(0, 0, 0), get_reference_frame().get_location(time));
         std::vector<std::pair<float, Surface *>> line_intersections = intersections(line, time);

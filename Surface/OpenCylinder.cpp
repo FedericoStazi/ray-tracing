@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "OpenCylinder.h"
-#include "../Utils/BaseGeometry/Constants.h"
+#include "../Utils/BaseGeometry/Values.h"
 
 OpenCylinder::OpenCylinder(const ReferenceFrame &referenceFrame, const Aspect &aspect,
                            float radius, float height) : Surface(referenceFrame, aspect), radius(radius), height(height) {}
@@ -23,8 +23,7 @@ std::vector<std::pair<float, Surface *>> OpenCylinder::intersections(const Line 
     std::vector<std::pair<float, Surface *>> result;
 
     Line ray_trans = get_reference_frame().to_ref_frame(ray, time);
-    Vector3 line = ray_trans.get_direction(time);
-    Vector3 line2d = get_reference_frame().to_plane(line, time);
+    Vector3 line2d = get_reference_frame().to_plane(ray_trans.get_direction(time), time);
     float proj_norm = line2d.norm();
     line2d.normalize();
 
