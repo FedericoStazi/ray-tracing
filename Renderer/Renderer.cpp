@@ -6,8 +6,11 @@
 #include <iostream>
 #include <mutex>
 #include <thread>
+#include <fstream>
 #include "Renderer.h"
 #include "../Utils/BaseGeometry/Vector2.h"
+
+std::ofstream out("log.txt");
 
 Picture Renderer::picture(int height, int width, float time) const {
 
@@ -96,6 +99,7 @@ Picture Renderer::picture(int height, int width, float time) const {
         //called at the end, can do anything with requests queue
         Color get_color() {
             //return Color((float)requests.size()/10, (float)requests.size()/100, (float)requests.size()/1000);
+            out<<x<<" "<<y<<" "<<requests.size()<<std::endl;
             Color result;
             while (!requests.empty()) {
                 RayRequest req = requests.top();
@@ -107,7 +111,7 @@ Picture Renderer::picture(int height, int width, float time) const {
 
     };
 
-    int max_requests = 4 * height * width;
+    int max_requests = 10 * height * width;
     std::priority_queue<PixelRenderer> queue;
     int threads_number = 8;
 

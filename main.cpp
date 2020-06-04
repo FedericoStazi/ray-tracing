@@ -99,12 +99,13 @@ int main() {
 
     // Cameras
 
+    int size = 100;
     // Regular picture
     RealCamera c1(Vector3(30, 10, 150), Vector3(0, 0, 0), scene);
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
     std::string name = "pictures/pic"+std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
-    print_picture(c1.picture(128, 128, 0), name);
-    system(("xdg-open "+name).c_str());
+    print_picture(c1.picture(size, size, 0), name);
+    system(("xdg-open "+name+" & python3 log.py "+std::to_string(size)+" < log.txt").c_str());
 
 }
