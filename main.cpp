@@ -104,7 +104,7 @@ int main() {
     c1.set_aperture_size(0.1);
     c1.set_shutter_speed(0);
     std::string name = "pictures/pic"+std::to_string(std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
-    print_picture(c1.picture(50, 50, 0), name);
+    print_picture(c1.picture(128, 128, 0), name);
     system(("xdg-open "+name).c_str());
 
 }

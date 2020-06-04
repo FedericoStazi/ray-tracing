@@ -6,7 +6,7 @@
 #include "OpenCylinder.h"
 #include "../Utils/BaseGeometry/Values.h"
 
-UnitVector3 OpenCylinder::get_normal(const Vector3 &v, float time) {
+UnitVector3 OpenCylinder::get_normal(const Vector3 &v, float time) const {
     Vector3 w = v - get_reference_frame().get_location(time);
     return static_cast<UnitVector3>(Vector2(
         w.dot(get_reference_frame().get_orientation().get_x_base(time)),

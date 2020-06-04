@@ -12,7 +12,7 @@ class OpenCylinder : public Surface{
 
 public:
 
-    UnitVector3 get_normal(const Vector3 & v, float time);
+    UnitVector3 get_normal(const Vector3 & v, float time) const override;
 
     std::vector<std::pair<float, Surface *>> intersections(const Line & ray, float time) override;
 
