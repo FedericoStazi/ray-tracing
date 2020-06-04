@@ -8,20 +8,23 @@
 
 #include "Utils/Geometry/ReferenceFrame.h"
 
+///Parent of any class that has a position in the world
 class Entity {
+
+public:
+
+    [[nodiscard]] const ReferenceFrame &get_reference_frame() const {
+        return reference_frame;
+    }
+
+protected:
+
+    explicit Entity(ReferenceFrame referenceFrame) : reference_frame(std::move(referenceFrame)) {}
+    Entity() {};
 
 private:
 
     ReferenceFrame reference_frame;
-
-protected:
-
-    explicit Entity(ReferenceFrame referenceFrame);
-    Entity();
-
-public:
-
-    [[nodiscard]] const ReferenceFrame &get_reference_frame() const;
 
 };
 

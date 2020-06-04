@@ -5,7 +5,6 @@
 #include "Basis.h"
 
 #include <utility>
-#include <iostream>
 
 Basis::Basis(TimeUnitVector3 xBase, TimeUnitVector3 yBase, TimeUnitVector3 zBase) : x_base(std::move(xBase)),
                                                                                     y_base(std::move(yBase)),

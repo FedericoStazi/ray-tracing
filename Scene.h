@@ -13,7 +13,22 @@
 #include "Object/Object.h"
 #include "Utils/BaseGeometry/Values.h"
 
+/// Class representing the scene
+/// Holds all the entities in the scene (objects, cameras, lights...)
 class Scene {
+
+public:
+
+    void add(Object *object) {
+        objects.insert(object);
+    }
+
+    void add(Light *light) {
+        lights.insert(light);
+    }
+
+    /// Casts a ray in the scene, and returns the resulting color
+    [[nodiscard]] Color cast_ray(const Line& ray, int reflections, float time) const;
 
 private:
 
@@ -34,13 +49,6 @@ private:
 
     [[nodiscard]] IntersectionData ray_intersection(const Line& ray, float time) const;
     [[nodiscard]] Color surface_color(IntersectionData intersection_data, const Line& ray, int reflections, float time) const;
-
-public:
-
-    void add(Object* object);
-    void add(Light* light);
-
-    [[nodiscard]] Color cast_ray(const Line& ray, int reflections, float time) const;
 
 };
 

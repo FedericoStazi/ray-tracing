@@ -5,14 +5,7 @@
 #include "Scene.h"
 #include "Utils/BaseGeometry/Values.h"
 
-void Scene::add(Object *object) {
-    objects.insert(object);
-}
-
-void Scene::add(Light *light) {
-    lights.insert(light);
-}
-
+//tests all objects for intersection and returns the closest one
 Scene::IntersectionData Scene::ray_intersection(const Line &ray, float time) const {
 
     IntersectionData closest_intersection;
@@ -26,6 +19,7 @@ Scene::IntersectionData Scene::ray_intersection(const Line &ray, float time) con
 
 }
 
+//returns the color of a surface at a given point, using Phong's illumination model
 Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line& ray, int reflections, float time) const {
 
     Color result = ambient_intensity.scale(intersection_data.surface->get_aspect().get_k_diffuse());
@@ -55,7 +49,7 @@ Color Scene::surface_color(Scene::IntersectionData intersection_data, const Line
             // specular reflection
             result = result.add(light->get_intensity().scale(
                     intersection_data.surface->get_aspect().get_k_specular().scale(
-                            pow(
+                            std::pow(
                                     std::max(0.0f, surface_normal.reflect(light_line.get_direction(time)).dot(viewer_vector)),
                                     intersection_data.surface->get_aspect().get_roughness()))));
 

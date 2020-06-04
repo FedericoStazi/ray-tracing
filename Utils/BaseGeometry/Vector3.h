@@ -9,6 +9,7 @@
 #include "../../Aspect/Color.h"
 #include <Eigen/Core>
 #include <Eigen/Geometry>
+#include "Values.h"
 
 ///represents a 3d vector
 class [[nodiscard]] Vector3 : public Eigen::Vector3f {
@@ -22,7 +23,7 @@ public:
     };
 
     [[nodiscard]] inline float distance(const Vector3& v) const {
-        return (*this - other).norm();
+        return (*this - v).norm();
     };
 
     [[nodiscard]] Vector3 rotate(float x, float y, float z) const;

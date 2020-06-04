@@ -12,6 +12,8 @@
 #include "../BaseGeometry/Vector2.h"
 #include "../TimeGeometry/TimeVector2.h"
 
+class Basis;
+
 /// Represents a reference, that has an origin and three basis referred to the original reference frame
 /// Can be used to represent a plane, where the x and y axis are axis of the plane, and the z axis is the upwards normal
 class ReferenceFrame {
@@ -110,8 +112,8 @@ public:
             get_orientation().get_z_base(time).dot(line.get_direction(time));
     }
 
-    /// Returns the point of intersection of the line with the plane
-    [[nodiscard]] Vector3 inline point_intersection(const Line& line, float time) const {
+    /// Returns the point of intersection of the line with the plane, in the plane coordinates
+    [[nodiscard]] Vector2 inline point_intersection(const Line& line, float time) const {
         return to_plane(line.evaluate(k_intersection(line, time), time), time);
     }
 

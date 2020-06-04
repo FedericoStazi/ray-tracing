@@ -11,6 +11,8 @@
 #include "../TimeGeometry/TimeUnitVector3.h"
 
 class TimeVector3;
+
+///Line expressed as a + k * b, where a,b are vectors (location and direction respectively). k can be any real number
 class Line {
 
 public:

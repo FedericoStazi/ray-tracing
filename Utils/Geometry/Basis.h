@@ -5,7 +5,6 @@
 #ifndef CPP_GRAPHICS_BASIS_H
 #define CPP_GRAPHICS_BASIS_H
 
-
 #include "../TimeGeometry/TimeUnitVector3.h"
 
 class Basis {
@@ -18,11 +17,11 @@ public:
         }
     };
 
-    Basis rotate(float x, float y, float z, float time) const;
+    [[nodiscard]] Basis rotate(float x, float y, float z, float time) const;
 
     ///Express basis as a matrix whose columns are x,y,z
     ///Can be used for faster change of basis
-    [[nodiscard]] Eigen::Matrix3f inline get_matrix(float time) const;
+    [[nodiscard]] Eigen::Matrix3f get_matrix(float time) const;
 
     [[nodiscard]] UnitVector3 inline get_x_base(float time) const {
         if (!_check_orthonormal or Basis::_is_orthonormal(time))
@@ -54,7 +53,7 @@ public:
 
 private:
 
-    [[nodiscard]] bool inline _is_orthonormal(float time) const;
+    [[nodiscard]] bool _is_orthonormal(float time) const;
 
     TimeUnitVector3 x_base, y_base, z_base;
     Eigen::Matrix3f basis_matrix;
