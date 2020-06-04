@@ -25,10 +25,10 @@ Based on Phong's and Lambertian's shading
 # Results
 
 This is an high resolution image (500x500) created in ~5hrs on a regular laptop:
-![image1](https://github.com/FedericoStazi/cpp_graphics/blob/master/f1.ppm)
+![image1](https://github.com/FedericoStazi/cpp_graphics/blob/master/f1.png)
 
 This is a lower resolution image (250x250) with an object really close to the camera:
-![image2](https://github.com/FedericoStazi/cpp_graphics/blob/master/f2.ppm)
+![image2](https://github.com/FedericoStazi/cpp_graphics/blob/master/f2.png)
 
 This is the heatmap of the number of rays for each pixel, showing where more rays were casted:
 ![image3](https://github.com/FedericoStazi/cpp_graphics/blob/master/f3.png)
