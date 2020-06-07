@@ -28,7 +28,7 @@ public:
     }
 
     void set_aperture_size(float _aperture_size) {
-        aperture_distance = _aperture_size;
+        aperture_size = _aperture_size;
     }
 
     void set_aperture_distance(float _aperture_distance) {
@@ -78,7 +78,7 @@ public:
 
 private:
 
-    int _reflections = 1;
+    int _reflections = 3;
 
     //Camera characteristics
     float sensor_size = 3.5;

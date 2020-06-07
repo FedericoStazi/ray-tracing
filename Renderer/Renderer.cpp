@@ -37,7 +37,7 @@ Picture Renderer::picture(int height, int width, float time) const {
     class PixelRenderer {
     public:
 
-        int sub_squares=2; //2^i per side
+        int sub_squares=1; //2^i per side
         int x, y;
         std::priority_queue<RayRequest> requests;
 
@@ -111,7 +111,7 @@ Picture Renderer::picture(int height, int width, float time) const {
 
     };
 
-    int max_requests = 10 * height * width;
+    int max_requests = 20 * height * width;
     std::priority_queue<PixelRenderer> queue;
     int threads_number = 8;
 
