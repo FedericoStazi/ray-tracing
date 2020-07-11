@@ -15,10 +15,9 @@ Based on Phong's and Lambertian's shading
 
 - Objects are inscribed in a sphere. If the ray does not touch the sphere, the expensive intersection computation is not performed
 
-
 - If an object's coordinates are not a function of time, they are optimized, making scenes with just a few moving objects much faster
 
-- More rays are casted on pixels were rays casted so far have an higher variation
+- More rays are casted on pixels where rays casted so far have an higher variation
 
 - Multithreading is used to improve performance
 
